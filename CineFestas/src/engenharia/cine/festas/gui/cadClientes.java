@@ -1,4 +1,4 @@
-package engenharia.cine.festas;
+package engenharia.cine.festas.gui;
 
 /**
  *

@@ -278,9 +278,6 @@
             <Component class="com.toedter.calendar.JDateChooser" name="dcDataNascimento">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
-                <Property name="icon" type="javax.swing.ImageIcon" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                  <ComponentRef name="default"/>
-                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
