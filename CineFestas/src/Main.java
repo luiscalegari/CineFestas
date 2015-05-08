@@ -1,6 +1,6 @@
 
 import engenharia.cine.festa.util.MensagensUtil;
-import engenharia.cine.festas.gui.CadClienteFrame;
+import engenharia.cine.festa.gui.CadClienteFrame;
 import javax.swing.UIManager;
 
 /**

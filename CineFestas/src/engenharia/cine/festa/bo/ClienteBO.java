@@ -8,6 +8,7 @@ import engenharia.cine.festa.exception.NegocioException;
  *
  * @author LuisFernando
  */
+
 public class ClienteBO {
 
     public void cadastrar(ClienteDTO clienteDTO) throws NegocioException {

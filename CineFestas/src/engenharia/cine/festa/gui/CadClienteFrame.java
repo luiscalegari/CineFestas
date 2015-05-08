@@ -1,4 +1,4 @@
-package engenharia.cine.festas.gui;
+package engenharia.cine.festa.gui;
 
 import engenharia.cine.festa.bo.ClienteBO;
 import engenharia.cine.festa.dto.ClienteDTO;
