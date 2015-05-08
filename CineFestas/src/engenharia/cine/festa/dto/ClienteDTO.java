@@ -20,6 +20,7 @@ public class ClienteDTO {
     private Date _dtNascimento;
     private Date _dtcadastro;
     private boolean _inadimplencia;
+    private String _estado;
 
     public ClienteDTO() {
     }
@@ -118,5 +119,13 @@ public class ClienteDTO {
 
     public void setInadimplencia(boolean _inadimplencia) {
         this._inadimplencia = _inadimplencia;
+    }
+
+    public String getEstado() {
+        return _estado;
+    }
+
+    public void setEstado(String _estado) {
+        this._estado = _estado;
     }
 }
