@@ -11,6 +11,14 @@ public class FuncionarioDTO extends ClienteDTO {
     private String _login;
     private String _senha;
 
+    public FuncionarioDTO(String _funcao, boolean _disponivel, String _login, String _senha) {
+        super();
+        this._funcao = _funcao;
+        this._disponivel = _disponivel;
+        this._login = _login;
+        this._senha = _senha;
+    }
+
     public FuncionarioDTO() {
     }
 

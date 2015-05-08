@@ -60,15 +60,15 @@ public class CadFuncionarioFrame extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         pnlComponentes1 = new javax.swing.JPanel();
-        txtNome1 = new javax.swing.JTextField();
+        txtLogin = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        txtCpf1 = new javax.swing.JTextField();
-        txtRg1 = new javax.swing.JTextField();
+        txtFuncao = new javax.swing.JTextField();
+        txtSenha = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         pnlSexo1 = new javax.swing.JPanel();
-        rbMasculino1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rbDisponivel = new javax.swing.JRadioButton();
+        rbOcupado = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -283,10 +283,10 @@ public class CadFuncionarioFrame extends javax.swing.JFrame {
 
         pnlSexo1.setBorder(javax.swing.BorderFactory.createTitledBorder("Disponibilidade"));
 
-        rbMasculino1.setSelected(true);
-        rbMasculino1.setLabel("Disponível");
+        rbDisponivel.setSelected(true);
+        rbDisponivel.setLabel("Disponível");
 
-        jRadioButton2.setText("Ocupado");
+        rbOcupado.setText("Ocupado");
 
         javax.swing.GroupLayout pnlSexo1Layout = new javax.swing.GroupLayout(pnlSexo1);
         pnlSexo1.setLayout(pnlSexo1Layout);
@@ -295,16 +295,16 @@ public class CadFuncionarioFrame extends javax.swing.JFrame {
             .addGroup(pnlSexo1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlSexo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton2)
-                    .addComponent(rbMasculino1))
+                    .addComponent(rbOcupado)
+                    .addComponent(rbDisponivel))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         pnlSexo1Layout.setVerticalGroup(
             pnlSexo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSexo1Layout.createSequentialGroup()
-                .addComponent(rbMasculino1)
+                .addComponent(rbDisponivel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton2))
+                .addComponent(rbOcupado))
         );
 
         javax.swing.GroupLayout pnlComponentes1Layout = new javax.swing.GroupLayout(pnlComponentes1);
@@ -317,7 +317,7 @@ public class CadFuncionarioFrame extends javax.swing.JFrame {
                     .addGroup(pnlComponentes1Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtRg1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnlComponentes1Layout.createSequentialGroup()
                         .addGroup(pnlComponentes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,8 +327,8 @@ public class CadFuncionarioFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel12)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlComponentes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNome1)
-                            .addComponent(txtCpf1))))
+                            .addComponent(txtLogin)
+                            .addComponent(txtFuncao))))
                 .addGap(34, 34, 34)
                 .addComponent(pnlSexo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
@@ -342,15 +342,15 @@ public class CadFuncionarioFrame extends javax.swing.JFrame {
                     .addGroup(pnlComponentes1Layout.createSequentialGroup()
                         .addGroup(pnlComponentes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
-                            .addComponent(txtCpf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlComponentes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNome1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlComponentes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel14)
-                            .addComponent(txtRg1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -441,27 +441,27 @@ public class CadFuncionarioFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel pnlBotoes;
     private javax.swing.JPanel pnlComponentes;
     private javax.swing.JPanel pnlComponentes1;
     private javax.swing.JPanel pnlSexo;
     private javax.swing.JPanel pnlSexo1;
+    private javax.swing.JRadioButton rbDisponivel;
     private javax.swing.JRadioButton rbMasculino;
-    private javax.swing.JRadioButton rbMasculino1;
+    private javax.swing.JRadioButton rbOcupado;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCEP;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCpf;
-    private javax.swing.JTextField txtCpf1;
     private javax.swing.JTextField txtData;
+    private javax.swing.JTextField txtFuncao;
+    private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtNome1;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtRg;
-    private javax.swing.JTextField txtRg1;
     private javax.swing.JTextField txtRua;
+    private javax.swing.JTextField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
