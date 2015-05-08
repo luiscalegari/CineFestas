@@ -1,7 +1,7 @@
 
-import engenharia.cine.festa.util.MensagensUtil;
 import engenharia.cine.festa.gui.CadClienteFrame;
-import javax.swing.UIManager;
+import engenharia.cine.festa.util.MensagensUtil;
+import engenharia.cine.festa.util.Utilidades;
 
 /**
  *
@@ -15,12 +15,12 @@ public class Main {
 
     private void executa() {
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            Utilidades.setlookAndFeel();
         } catch (Exception e) {
             e.printStackTrace();
-            MensagensUtil.addMsg(null, "Não foi possível iniciar o sistema!!!");
+            MensagensUtil.addMsg(null, e.getMessage());
         }
-        
+
         new CadClienteFrame().setVisible(true);
     }
 }

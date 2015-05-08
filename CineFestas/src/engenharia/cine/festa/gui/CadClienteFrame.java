@@ -2,6 +2,8 @@ package engenharia.cine.festa.gui;
 
 import engenharia.cine.festa.bo.ClienteBO;
 import engenharia.cine.festa.dto.ClienteDTO;
+import engenharia.cine.festa.util.MensagensUtil;
+import engenharia.cine.festa.util.Utilidades;
 import java.util.Date;
 import javax.swing.ImageIcon;
 
@@ -61,6 +63,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
         pnlListagem = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cliente");
 
         pnlCadastro.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Cliente")));
 
@@ -334,17 +337,21 @@ public class CadClienteFrame extends javax.swing.JFrame {
             clienteDTO.setBairro(txtBairro.getText());
             clienteDTO.setCep(txtCep.getText());
             clienteDTO.setCidade(txtCidade.getText());
-            clienteDTO.setCodigo(Integer.parseInt(txtCodigo.getText()));
+            clienteDTO.setCodigo(!txtCodigo.getText().isEmpty() ? Integer.parseInt(txtCodigo.getText()) : 0);
             clienteDTO.setCpf(txtCpf.getText());
-            clienteDTO.setDtNascimento(new Date(txtDtNascimento.getText()));
-            clienteDTO.setEndereco(txtRua.getText() + ", " + txtNumero.getText());
+            clienteDTO.setDtNascimento(!txtDtNascimento.getText().isEmpty() ? new Date() : new Date());
+            clienteDTO.setEndereco(!txtRua.getText().isEmpty() && !txtNumero.getText().isEmpty() ? txtRua.getText() + ", " + txtNumero.getText() : "");
             clienteDTO.setNome(txtNome.getText());
             clienteDTO.setRg(txtRg.getText());
             clienteDTO.setSexo(rbMasculino.isSelected() ? 'M' : 'F');
             clienteDTO.setEstado(cmbEstado.getSelectedItem().toString());
-            
+
             ClienteBO clienteBO = new ClienteBO();
+            clienteBO.cadastrar(clienteDTO);
+            MensagensUtil.addMsg(this, "Cadastro efetuado com sucesso!!!");
         } catch (Exception e) {
+            e.printStackTrace();
+            MensagensUtil.addMsg(this, e.getMessage());
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -397,7 +404,6 @@ public class CadClienteFrame extends javax.swing.JFrame {
 
     private void initConf() {
         this.setLocationRelativeTo(null);
-        ImageIcon icone = new ImageIcon("/Imagens/icone.png");
-        this.setIconImage(icone.getImage());
+        Utilidades.AlteraIconeFrame(this, new ImageIcon(this.getClass().getResource("/Imagens/icone64x64.png")));
     }
 }
