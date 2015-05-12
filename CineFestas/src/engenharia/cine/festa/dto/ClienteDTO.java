@@ -18,7 +18,7 @@ public class ClienteDTO {
     private String _rg;
     private Character _sexo;
     private Date _dtNascimento;
-    private Date _dtcadastro;
+    private Date _dtCadastro;
     private boolean _inadimplencia;
     private String _estado;
 
@@ -105,12 +105,12 @@ public class ClienteDTO {
         this._dtNascimento = _dtNascimento;
     }
 
-    public Date getDtcadastro() {
-        return _dtcadastro;
+    public Date getDtCadastro() {
+        return _dtCadastro;
     }
 
-    public void setDtcadastro(Date _dtcadastro) {
-        this._dtcadastro = _dtcadastro;
+    public void setDtCadastro(Date _dtCadastro) {
+        this._dtCadastro = _dtCadastro;
     }
 
     public boolean isInadimplencia() {

@@ -37,15 +37,4 @@ public class Utilidades {
             }
         }
     }
-    
-    public static String formataData(Date data) {
-        SimpleDateFormat dataFormater = new SimpleDateFormat("dd/MM/yyyy");
-        String d = dataFormater.format(data).toString();
-        return dataFormater.format(data).toString();
-    }
-    
-    public static Date formataData(String data) {
-        SimpleDateFormat dataFormater = new SimpleDateFormat("dd/MM/yyyy");
-        return dataFormater.format(data);
-    }
 }

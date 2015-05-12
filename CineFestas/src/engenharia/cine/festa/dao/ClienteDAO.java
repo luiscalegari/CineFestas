@@ -3,7 +3,6 @@ package engenharia.cine.festa.dao;
 import engenharia.cine.festa.dto.ClienteDTO;
 import engenharia.cine.festa.exception.PersistenciaException;
 import engenharia.cine.festa.jdbc.ConexaoUtil;
-import engenharia.cine.festa.util.Utilidades;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -20,21 +19,22 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
             String sql = ""
-                    + "INSERT INTO CLIENTE(NOME, CEP, ENDERECO, BAIRRO, CIDADE, CPF, RG, SEXO, DTNASCIMENTO, DTCADASTRO, INADINPLENCIA)"
+                    + "INSERT INTO CLIENTE("
+                    + " NOME, CEP, ENDERECO, BAIRRO, CIDADE, CPF, RG, SEXO, DTNASCIMENTO, DTCADASTRO, INADINPLENCIA )"
                     + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE(), ?)";
-            
+
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, obj.getNome());
-            statement.setString(2, obj.getCep());
+            statement.setInt(2, Integer.parseInt(obj.getCep()));
             statement.setString(3, obj.getEndereco());
             statement.setString(4, obj.getBairro());
             statement.setString(5, obj.getCidade());
             statement.setString(6, obj.getCpf());
             statement.setString(7, obj.getRg());
             statement.setString(8, obj.getSexo().toString());
-            statement.setString(9, Utilidades.formataData(obj.getDtNascimento()));
+            statement.setDate(9, new Date(obj.getDtNascimento().getTime()));
             statement.setBoolean(10, true);
-            
+
             statement.execute();
             connection.close();
         } catch (Exception e) {

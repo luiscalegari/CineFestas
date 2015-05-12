@@ -4,7 +4,8 @@ import engenharia.cine.festa.bo.ClienteBO;
 import engenharia.cine.festa.dto.ClienteDTO;
 import engenharia.cine.festa.util.MensagensUtil;
 import engenharia.cine.festa.util.Utilidades;
-import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
 
 /**
@@ -13,9 +14,8 @@ import javax.swing.ImageIcon;
  */
 public class CadClienteFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CadClienteFrame
-     */
+    private final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
     public CadClienteFrame() {
         initComponents();
         initConf();
@@ -49,11 +49,11 @@ public class CadClienteFrame extends javax.swing.JFrame {
         txtBairro = new javax.swing.JTextField();
         txtCidade = new javax.swing.JTextField();
         cmbEstado = new javax.swing.JComboBox();
+        txtCep = new javax.swing.JTextField();
+        txtDtNascimento = new javax.swing.JTextField();
         pnlSexo = new javax.swing.JPanel();
         rbMasculino = new javax.swing.JRadioButton();
         rbFeminino = new javax.swing.JRadioButton();
-        txtCep = new javax.swing.JTextField();
-        txtDtNascimento = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
@@ -333,22 +333,37 @@ public class CadClienteFrame extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         ClienteDTO clienteDTO = new ClienteDTO();
+        ClienteBO clienteBO = new ClienteBO();
         try {
+            String sCep = txtCep.getText();
+            String sCidade = txtCidade.getText();
+            String sCpf = txtCpf.getText();
+            String sDtNasc = txtDtNascimento.getText();
+            String sNome = txtNome.getText();
+            String sRg = txtRg.getText();
+
+            clienteBO.validaCep(sCep);
+            clienteBO.validaCidade(sCidade);
+            clienteBO.validaCpf(sCpf);
+            clienteBO.validaDtNasc(sDtNasc);
+            clienteBO.validaNome(sNome);
+            clienteBO.validaRg(sRg);
+
             clienteDTO.setBairro(txtBairro.getText());
-            clienteDTO.setCep(txtCep.getText());
-            clienteDTO.setCidade(txtCidade.getText());
-            clienteDTO.setCodigo(!txtCodigo.getText().isEmpty() ? Integer.parseInt(txtCodigo.getText()) : 0);
-            clienteDTO.setCpf(txtCpf.getText());
-            clienteDTO.setDtNascimento(!txtDtNascimento.getText().isEmpty() ? new Date() : new Date());
-            clienteDTO.setEndereco(!txtRua.getText().isEmpty() && !txtNumero.getText().isEmpty() ? txtRua.getText() + ", " + txtNumero.getText() : "");
-            clienteDTO.setNome(txtNome.getText());
-            clienteDTO.setRg(txtRg.getText());
+            clienteDTO.setCep(sCep);
+            clienteDTO.setCidade(sCidade);
+            clienteDTO.setCpf(sCpf);
+            clienteDTO.setDtNascimento(dateFormat.parse(sDtNasc));
+            clienteDTO.setEndereco(!txtRua.getText().isEmpty() ? txtRua.getText() 
+                    + (!txtNumero.getText().isEmpty() ? ", " + txtNumero.getText() : "") : "");
+            clienteDTO.setNome(sNome);
+            clienteDTO.setRg(sRg);
             clienteDTO.setSexo(rbMasculino.isSelected() ? 'M' : 'F');
             clienteDTO.setEstado(cmbEstado.getSelectedItem().toString());
 
-            ClienteBO clienteBO = new ClienteBO();
             clienteBO.cadastrar(clienteDTO);
             MensagensUtil.addMsg(this, "Cadastro efetuado com sucesso!!!");
+            btnLimparActionPerformed(evt);
         } catch (Exception e) {
             e.printStackTrace();
             MensagensUtil.addMsg(this, e.getMessage());
