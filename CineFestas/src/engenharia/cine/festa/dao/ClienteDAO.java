@@ -23,9 +23,9 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
                     + " NOME, CEP, ENDERECO, BAIRRO, CIDADE, CPF, RG, SEXO, DTNASCIMENTO, DTCADASTRO, INADINPLENCIA )"
                     + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE(), ?)";
 
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareCall(sql);
             statement.setString(1, obj.getNome());
-            statement.setInt(2, Integer.parseInt(obj.getCep()));
+            statement.setInt(2, Integer.parseInt(obj.getCep().replace("-", "")));
             statement.setString(3, obj.getEndereco());
             statement.setString(4, obj.getBairro());
             statement.setString(5, obj.getCidade());
@@ -33,13 +33,8 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
             statement.setString(7, obj.getRg());
             statement.setString(8, obj.getSexo().toString());
             statement.setDate(9, new Date(obj.getDtNascimento().getTime()));
-<<<<<<< HEAD
-            statement.setBoolean(10, true);
-
-=======
             statement.setBoolean(10, false);
             
->>>>>>> origin/master
             statement.execute();
             connection.close();
         } catch (Exception e) {
