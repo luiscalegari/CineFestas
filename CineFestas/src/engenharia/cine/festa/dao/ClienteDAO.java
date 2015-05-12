@@ -33,8 +33,13 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
             statement.setString(7, obj.getRg());
             statement.setString(8, obj.getSexo().toString());
             statement.setDate(9, new Date(obj.getDtNascimento().getTime()));
+<<<<<<< HEAD
             statement.setBoolean(10, true);
 
+=======
+            statement.setBoolean(10, false);
+            
+>>>>>>> origin/master
             statement.execute();
             connection.close();
         } catch (Exception e) {
