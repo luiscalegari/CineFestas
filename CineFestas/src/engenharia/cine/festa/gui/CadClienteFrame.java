@@ -273,11 +273,6 @@ public class CadClienteFrame extends javax.swing.JFrame {
 
         btnSalvar.setText("Salvar");
         btnSalvar.setEnabled(false);
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
 
         jButton2.setText("Excluir");
         jButton2.setEnabled(false);
@@ -360,10 +355,6 @@ public class CadClienteFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         ClienteDTO clienteDTO = new ClienteDTO();

@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `cinefestadb`.`festa` (
   `dtEvento` DATE NOT NULL,
   `dtConcepcao` DATE NULL DEFAULT NULL,
   `dtCadastro` DATE NOT NULL,
-  `descricao` VARCHAR(45) NOT NULL,
+  `descricao` VARCHAR(400) NOT NULL,
   `atracao` VARCHAR(200) NULL DEFAULT NULL,
   `publicoEsperado` INT(11) NULL DEFAULT NULL,
   `responsaveisEvento` VARCHAR(140) NULL DEFAULT NULL,
