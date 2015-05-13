@@ -8,8 +8,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -17,7 +19,7 @@ import javax.swing.JTextField;
  */
 public class CadClienteFrame extends javax.swing.JFrame {
 
-    private final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    public final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     public CadClienteFrame() {
         initComponents();
@@ -35,21 +37,21 @@ public class CadClienteFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
+        txtNome = new engenharia.cine.festa.util.JtextFieldSomenteLetras(70);
         jLabel3 = new javax.swing.JLabel();
         txtCpf = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         txtRG = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtRua = new javax.swing.JTextField();
+        txtRua = new engenharia.cine.festa.util.JtextFieldSomenteLetras(65);
         jLabel6 = new javax.swing.JLabel();
-        txtNumero = new javax.swing.JTextField();
+        txtNumero = new engenharia.cine.festa.util.JtextFieldSomenteNumeros(5);
         jLabel7 = new javax.swing.JLabel();
-        txtBairro = new javax.swing.JTextField();
+        txtBairro = new engenharia.cine.festa.util.JtextFieldSomenteLetras(70);
         jLabel8 = new javax.swing.JLabel();
         txtCep = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtCidade = new javax.swing.JTextField();
+        txtCidade = new engenharia.cine.festa.util.JtextFieldSomenteLetras(45);
         jLabel10 = new javax.swing.JLabel();
         cmbEstado = new javax.swing.JComboBox();
         pnlSexo = new javax.swing.JPanel();
@@ -270,6 +272,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
         tabPanel.addTab("Listagem", pnlListagem);
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setEnabled(false);
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -277,6 +280,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
         });
 
         jButton2.setText("Excluir");
+        jButton2.setEnabled(false);
 
         btnAdicionar.setText("Adicionar");
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -336,7 +340,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
             .addGroup(pnlTudoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -492,14 +496,14 @@ public class CadClienteFrame extends javax.swing.JFrame {
             // defino que a mascara possui essa
             //quantidade de elementos que foi informado em tamanho e
             // foi colocada com * dentro de quantidade
-            javax.swing.text.MaskFormatter nome = new javax.swing.text.MaskFormatter(quantidade);
+            MaskFormatter nome = new MaskFormatter(quantidade);
 
             //defino que o parâmetro caracter recebido pelo
             //método contém os caracteres válidos 
             nome.setValidCharacters(caracteres);
 
             //retorno a mascara que foi criada  
-            return new javax.swing.JFormattedTextField(nome);
+            return new JFormattedTextField(nome);
         }// fim do try
         catch (Exception e) {
             //mensagem se acontecer erro

@@ -4,6 +4,7 @@ import engenharia.cine.festa.dao.ClienteDAO;
 import engenharia.cine.festa.dto.ClienteDTO;
 import engenharia.cine.festa.exception.NegocioException;
 import engenharia.cine.festa.exception.ValidacaoException;
+import engenharia.cine.festa.util.Utilidades;
 
 /**
  *
@@ -25,8 +26,6 @@ public class ClienteBO {
         if (nome.isEmpty()) {
             ehValido = false;
             throw new ValidacaoException("Campo nome é obrigatório !!!");
-        } else {
-            
         }
         return ehValido;
     }
@@ -36,6 +35,9 @@ public class ClienteBO {
         if (cpf.equals("   .   .   -  ")) {
             ehValido = false;
             throw new ValidacaoException("Campo CPF é obrigatório !!!");
+        } else if (!Utilidades.isCpf(cpf)){
+            ehValido = true;
+            throw new ValidacaoException("CPF inválido !!!");
         }
         return ehValido;
     }
