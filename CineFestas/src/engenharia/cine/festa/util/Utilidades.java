@@ -1,6 +1,5 @@
 package engenharia.cine.festa.util;
 
-import java.util.InputMismatchException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UIManager;

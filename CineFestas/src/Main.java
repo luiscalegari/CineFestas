@@ -1,5 +1,4 @@
 
-import engenharia.cine.festa.gui.CadClienteFrame;
 import engenharia.cine.festa.gui.CadFestaFrame;
 import engenharia.cine.festa.util.MensagensUtil;
 import engenharia.cine.festa.util.Utilidades;
