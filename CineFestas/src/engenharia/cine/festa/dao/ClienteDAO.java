@@ -23,7 +23,7 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
                     + " NOME, CEP, ENDERECO, BAIRRO, CIDADE, CPF, RG, SEXO, DTNASCIMENTO, DTCADASTRO, INADINPLENCIA )"
                     + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE(), ?)";
 
-            PreparedStatement statement = connection.prepareCall(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, obj.getNome());
             statement.setInt(2, Integer.parseInt(obj.getCep().replace("-", "")));
             statement.setString(3, obj.getEndereco());
