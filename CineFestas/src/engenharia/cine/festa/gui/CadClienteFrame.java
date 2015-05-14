@@ -5,8 +5,12 @@ import engenharia.cine.festa.dto.ClienteDTO;
 import engenharia.cine.festa.util.MensagensUtil;
 import engenharia.cine.festa.util.Utilidades;
 import static engenharia.cine.festa.util.Utilidades.dateFormat;
+import java.awt.event.ActionEvent;
 import java.util.Date;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -291,7 +295,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
 
         tabListagem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {},
-            new String [] {"Nome", "CPF", "RG", "Sexo", "Dt. Nasc."}
+            new String [] {"Nome", "CPF", "RG", "Sexo", "Dt. Nasc.", ""}
         ));
         tabListagem.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         ScrollListagem.setViewportView(tabListagem);
@@ -558,17 +562,20 @@ public class CadClienteFrame extends javax.swing.JFrame {
 
         ClienteBO clienteBO = new ClienteBO();
         try {
-            TableModel model;
-            model = new DefaultTableModel(
-                    clienteBO.listaPesquisa(sNome, sCpf, sRg),
-                    new String[]{"Nome", "CPF", "RG", "Sexo", "Dt. Nasc."}) {
-                        @Override
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
-                        }
-                    };
-            tabListagem = new JTable();
+            String[][] listaCliente = clienteBO.listaPesquisa(sNome, sCpf, sRg);
+            TableModel model = new DefaultTableModel(listaCliente,
+                    new String[]{"Nome", "CPF", "RG", "Sexo", "Dt. Nasc.", ""});
             tabListagem.setModel(model);
+            Action actionSelect = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    JTable table = (JTable) actionEvent.getSource();
+                    
+                    int linha = Integer.parseInt(actionEvent.getActionCommand());
+                    JOptionPane.showMessageDialog(null, linha);
+                }
+            };
+            ButtonColumn buttonColumn = new ButtonColumn(tabListagem, actionSelect, 5);
         } catch (Exception e) {
             e.printStackTrace();
             MensagensUtil.addMsg(null, e.getMessage());

@@ -80,13 +80,12 @@ public class ClienteBO {
     }
 
     public String[][] listaPesquisa(String sNome, String sCpf, String sRg) throws NegocioException {
-        int numCols = 5;
+        int numCols = 6;
         String[][] listaRetorno = null;
         try {
             ClienteDAO clienteDAO = new ClienteDAO();
             List<ClienteDTO> listaCliente = clienteDAO.filtraCliente(sNome, sCpf, sRg);
             listaRetorno = new String[listaCliente.size()][numCols];
-
             for (int i = 0; i < listaCliente.size(); i++) {
                 ClienteDTO cliente = listaCliente.get(i);
                 listaRetorno[i][0] = cliente.getNome();
@@ -94,6 +93,7 @@ public class ClienteBO {
                 listaRetorno[i][2] = cliente.getRg();
                 listaRetorno[i][3] = cliente.getSexo().toString();
                 listaRetorno[i][4] = Utilidades.dateFormat.format(cliente.getDtNascimento());
+                listaRetorno[i][5] = "Selecionar";
             }
 
         } catch (Exception e) {
