@@ -5,6 +5,7 @@ import engenharia.cine.festa.dto.ClienteDTO;
 import engenharia.cine.festa.exception.NegocioException;
 import engenharia.cine.festa.exception.ValidacaoException;
 import engenharia.cine.festa.util.Utilidades;
+import java.util.List;
 
 /**
  *
@@ -35,13 +36,13 @@ public class ClienteBO {
         if (cpf.equals("   .   .   -  ")) {
             ehValido = false;
             throw new ValidacaoException("Campo CPF é obrigatório !!!");
-        } else if (!Utilidades.isCpf(cpf)){
+        } else if (!Utilidades.isCpf(cpf)) {
             ehValido = true;
             throw new ValidacaoException("CPF inválido !!!");
         }
         return ehValido;
     }
-    
+
     public boolean validaRg(String rg) throws ValidacaoException {
         boolean ehValido = true;
         if (rg.equals("  .   .   - ")) {
@@ -59,7 +60,7 @@ public class ClienteBO {
         }
         return ehValido;
     }
-    
+
     public boolean validaCep(String cep) throws ValidacaoException {
         boolean ehValido = true;
         if (cep.equals("     -   ")) {
@@ -76,5 +77,29 @@ public class ClienteBO {
             throw new ValidacaoException("Campo Dt. Nasc. é obrigatório !!!");
         }
         return ehValido;
+    }
+
+    public String[][] listaPesquisa(String sNome, String sCpf, String sRg) throws NegocioException {
+        int numCols = 5;
+        String[][] listaRetorno = null;
+        try {
+            ClienteDAO clienteDAO = new ClienteDAO();
+            List<ClienteDTO> listaCliente = clienteDAO.filtraCliente(sNome, sCpf, sRg);
+            listaRetorno = new String[listaCliente.size()][numCols];
+
+            for (int i = 0; i < listaCliente.size(); i++) {
+                ClienteDTO cliente = listaCliente.get(i);
+                listaRetorno[i][0] = cliente.getNome();
+                listaRetorno[i][1] = cliente.getCpf();
+                listaRetorno[i][2] = cliente.getRg();
+                listaRetorno[i][3] = cliente.getSexo().toString();
+                listaRetorno[i][4] = Utilidades.dateFormat.format(cliente.getDtNascimento());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new NegocioException(e.getMessage());
+        }
+        return listaRetorno;
     }
 }

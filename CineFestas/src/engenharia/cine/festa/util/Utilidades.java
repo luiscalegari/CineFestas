@@ -1,5 +1,7 @@
 package engenharia.cine.festa.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
@@ -13,6 +15,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class Utilidades {
 
     public static final String os = System.getProperty("os.name");
+    public static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     public static void AlteraIconeFrame(JFrame frame, ImageIcon icone) {
         frame.setIconImage(icone.getImage());
