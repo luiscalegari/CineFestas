@@ -21,6 +21,8 @@ public class ClienteDTO {
     private Date _dtCadastro;
     private boolean _inadimplencia;
     private String _estado;
+    private String _telefone;
+    private String _celular;
 
     public ClienteDTO() {
     }
@@ -127,5 +129,21 @@ public class ClienteDTO {
 
     public void setEstado(String _estado) {
         this._estado = _estado;
+    }
+
+    public String getTelefone() {
+        return _telefone;
+    }
+
+    public void setTelefone(String _telefone) {
+        this._telefone = _telefone;
+    }
+
+    public String getCelular() {
+        return _celular;
+    }
+
+    public void setCelular(String _celular) {
+        this._celular = _celular;
     }
 }

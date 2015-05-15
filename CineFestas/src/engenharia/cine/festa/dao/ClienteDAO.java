@@ -20,12 +20,12 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
     public void inserir(ClienteDTO obj) throws PersistenciaException {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
-            String sql = ""
+            String sSQL = ""
                     + "INSERT INTO CLIENTE("
-                    + " NOME, CEP, ENDERECO, BAIRRO, CIDADE, CPF, RG, SEXO, DTNASCIMENTO, DTCADASTRO, INADIMPLENCIA )"
-                    + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE(), ?)";
+                    + " NOME, CEP, ENDERECO, BAIRRO, CIDADE, CPF, RG, SEXO, DTNASCIMENTO, DTCADASTRO, INADIMPLENCIA, ESTADO, TELEFONE, CELULAR )"
+                    + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE(), ?, ?, ?, ?)";
 
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sSQL);
             statement.setString(1, obj.getNome());
             statement.setInt(2, Integer.parseInt(obj.getCep().replace("-", "")));
             statement.setString(3, obj.getEndereco());
@@ -36,6 +36,9 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
             statement.setString(8, obj.getSexo().toString());
             statement.setDate(9, new Date(obj.getDtNascimento().getTime()));
             statement.setBoolean(10, false);
+            statement.setString(11, obj.getEstado());
+            statement.setString(12, obj.getTelefone());
+            statement.setString(13, obj.getCelular());
 
             statement.execute();
             connection.close();
@@ -47,12 +50,51 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
 
     @Override
     public void atualizar(ClienteDTO obj) throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+
+            String sSQL = ""
+                    + "UPDATE CLIENTE"
+                    + " SET NOME = ?, CEP = ?, ENDERECO = ?, BAIRRO = ?,"
+                    + " CIDADE = ?, CPF = ?, RG = ?, SEXO = ?, DTNASCIMENTO = ?,"
+                    + " DTCADASTRO = ?, INADIMPENCIA = ?, TELEFONE = ?, CELULAR = ?, ESTADO = ?"
+                    + " WHERE CODIGO = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sSQL);
+            statement.setString(1, obj.getNome());
+            statement.setInt(2, Integer.parseInt(obj.getCep().replace("-", "")));
+            statement.setString(3, obj.getEndereco());
+            statement.setString(4, obj.getBairro());
+            statement.setString(5, obj.getCidade());
+            statement.setString(6, obj.getCpf());
+            statement.setString(7, obj.getRg());
+            statement.setString(8, obj.getSexo().toString());
+            statement.setDate(9, new Date(obj.getDtNascimento().getTime()));
+            statement.setBoolean(10, false);
+            statement.setString(11, obj.getEstado());
+            statement.setString(12, obj.getTelefone());
+            statement.setString(13, obj.getCelular());
+
+            statement.execute();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenciaException(e.getMessage());
+        }
     }
 
     @Override
     public void excluir(Integer codigo) throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sSQl = "DELETE FROM CLIENTE WHERE CODIGO  = ?";
+            PreparedStatement statement = connection.prepareStatement(sSQl);
+            statement.setInt(1, codigo);
+            statement.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenciaException(e.getMessage());
+        }
     }
 
     @Override
@@ -62,7 +104,37 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
 
     @Override
     public ClienteDTO buscarPorCodigo(Integer codigo) throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ClienteDTO clienteDTO = null;
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sSQL = "SELECT * FROM CLIENTE WHERE CODIGO = ?";
+            PreparedStatement statement = connection.prepareStatement(sSQL);
+            statement.setInt(1, codigo);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                clienteDTO = new ClienteDTO();
+                clienteDTO.setBairro(rs.getString("BAIRRO"));
+                clienteDTO.setCep(String.valueOf(rs.getInt("CEP")));
+                clienteDTO.setCidade(rs.getString("CIDADE"));
+                clienteDTO.setCodigo(rs.getInt("CODIGO"));
+                clienteDTO.setCpf(rs.getString("CPF"));
+                clienteDTO.setDtCadastro(rs.getDate("DTCADASTRO"));
+                clienteDTO.setDtNascimento(rs.getDate("DTNASCIMENTO"));
+                clienteDTO.setEndereco(rs.getString("ENDERECO"));
+                clienteDTO.setInadimplencia(rs.getBoolean("INADIMPLENCIA"));
+                clienteDTO.setNome(rs.getString("NOME"));
+                clienteDTO.setRg(rs.getString("RG"));
+                clienteDTO.setSexo(rs.getString("SEXO").charAt(0));
+                clienteDTO.setEstado(rs.getString("ESTADO"));
+                clienteDTO.setTelefone(rs.getString("TELEFONE"));
+                clienteDTO.setCelular(rs.getString("CELULAR"));
+            }
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenciaException(e.getMessage());
+        }
+        return clienteDTO;
     }
 
     public List<ClienteDTO> filtraCliente(String nome, String cpf, String rg) throws PersistenciaException {
@@ -126,6 +198,9 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
                 clienteDTO.setNome(rs.getString("NOME"));
                 clienteDTO.setRg(rs.getString("RG"));
                 clienteDTO.setSexo(rs.getString("SEXO").charAt(0));
+                clienteDTO.setEstado(rs.getString("ESTADO"));
+                clienteDTO.setTelefone(rs.getString("TELEFONE"));
+                clienteDTO.setCelular(rs.getString("CELULAR"));
 
                 listaCliente.add(clienteDTO);
             }

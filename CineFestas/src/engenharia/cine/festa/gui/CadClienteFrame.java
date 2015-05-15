@@ -5,8 +5,11 @@ import engenharia.cine.festa.dto.ClienteDTO;
 import engenharia.cine.festa.util.MensagensUtil;
 import engenharia.cine.festa.util.Utilidades;
 import static engenharia.cine.festa.util.Utilidades.dateFormat;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -20,6 +23,8 @@ import javax.swing.table.TableModel;
  * @author Luis Calegari
  */
 public class CadClienteFrame extends javax.swing.JFrame {
+
+    private List<Integer> listaCodigo;
 
     public CadClienteFrame() {
         initComponents();
@@ -61,6 +66,12 @@ public class CadClienteFrame extends javax.swing.JFrame {
         txtDtNascimento = new javax.swing.JFormattedTextField();
         btnAdicionar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        txtTelefone = new javax.swing.JFormattedTextField();
+        jLabel16 = new javax.swing.JLabel();
+        txtCelular = new javax.swing.JFormattedTextField();
+        btnLimparCadastro = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         pnlConsulta = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         txtNomeConsulta = new engenharia.cine.festa.util.JtextFieldSomenteLetras(70);
@@ -72,7 +83,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
         txtCpfConsulta = new javax.swing.JFormattedTextField();
         txtRgConsulta = new javax.swing.JFormattedTextField();
         btnPesquisar = new javax.swing.JButton();
-        btnLimpar = new javax.swing.JButton();
+        btnLimparPesquisa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Cliente");
@@ -170,6 +181,41 @@ public class CadClienteFrame extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setText("Telefone");
+
+        try {
+            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) - ########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel16.setText("Celular:");
+
+        try {
+            txtCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) - #########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        btnLimparCadastro.setText("Limpar");
+        btnLimparCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparPesquisaActionPerformed(evt);
+            }
+        });
+
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlCadastroLayout = new javax.swing.GroupLayout(pnlCadastro);
         pnlCadastro.setLayout(pnlCadastroLayout);
@@ -180,14 +226,25 @@ public class CadClienteFrame extends javax.swing.JFrame {
                 .addGroup(pnlCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlCadastroLayout.createSequentialGroup()
                         .addComponent(pnlSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDtNascimento))
+                        .addGroup(pnlCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlCadastroLayout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDtNascimento))
+                            .addGroup(pnlCadastroLayout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCelular)))
+                        .addGap(6, 6, 6))
                     .addGroup(pnlCadastroLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -225,7 +282,11 @@ public class CadClienteFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtRua))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCadastroLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLimparCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -262,21 +323,27 @@ public class CadClienteFrame extends javax.swing.JFrame {
                     .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(pnlCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pnlSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlCadastroLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlCadastroLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
                         .addGroup(pnlCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11)
-                            .addComponent(txtDtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtDtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16)
+                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(pnlCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionar)
-                    .addComponent(btnSalvar)))
+                    .addComponent(btnSalvar)
+                    .addComponent(btnLimparCadastro)
+                    .addComponent(btnExcluir)))
         );
 
         tabPanel.addTab("Cadastro", pnlCadastro);
@@ -330,10 +397,10 @@ public class CadClienteFrame extends javax.swing.JFrame {
             }
         });
 
-        btnLimpar.setText("Limpar");
-        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+        btnLimparPesquisa.setText("Limpar");
+        btnLimparPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparActionPerformed(evt);
+                btnLimparPesquisaActionPerformed(evt);
             }
         });
 
@@ -360,7 +427,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnLimparPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -380,7 +447,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
                     .addComponent(txtCpfConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtRgConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar)
-                    .addComponent(btnLimpar))
+                    .addComponent(btnLimparPesquisa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlListagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -425,18 +492,21 @@ public class CadClienteFrame extends javax.swing.JFrame {
         ClienteDTO clienteDTO = new ClienteDTO();
         ClienteBO clienteBO = new ClienteBO();
         try {
-            String sCodigo;
+            String sCodigo = !txtCodigo.getText().isEmpty() ? txtCodigo.getText() : "0";
             String sNome = txtNome.getText();
             String sCpf = txtCpf.getText();
             String sRg = txtRG.getText();
-            String sRua;
-            String sNumero;
-            String sBairro;
+            String sRua = txtRua.getText();
+            String sNumero = txtNumero.getText();
+            String sBairro = txtBairro.getText();
             String sCidade = txtCidade.getText();
-            String sEstado;
-            String sSexo;
+            String sSexo = rbFeminino.isSelected() ? "F" : "M";
             String sCep = txtCep.getText();
             String sDtNascimento = txtDtNascimento.getText();
+            String sFone = txtTelefone.getText() + txtCelular.getText();
+            String sEstado = cmbEstado.getSelectedItem().toString();
+            String sTelefone = txtTelefone.getText();
+            String sCelular = txtCelular.getText();
 
             clienteBO.validaNome(sNome);
             clienteBO.validaCpf(sCpf);
@@ -444,25 +514,28 @@ public class CadClienteFrame extends javax.swing.JFrame {
             clienteBO.validaCidade(sCidade);
             clienteBO.validaCep(sCep);
             clienteBO.validaDtNasc(sDtNascimento);
+            clienteBO.validaFone(sFone);
 
-            clienteDTO.setBairro(txtBairro.getText());
+            clienteDTO.setBairro(sBairro);
             clienteDTO.setCep(sCep);
             clienteDTO.setCidade(sCidade);
-            clienteDTO.setCodigo(!txtCodigo.getText().isEmpty() ? Integer.parseInt(txtCodigo.getText()) : 0);
+            clienteDTO.setCodigo(Integer.parseInt(sCodigo));
             clienteDTO.setCpf(sCpf);
             clienteDTO.setDtCadastro(new Date());
             clienteDTO.setDtNascimento(dateFormat.parse(sDtNascimento));
-            clienteDTO.setEndereco(!txtRua.getText().isEmpty() ? txtRua.getText()
-                    + (!txtNumero.getText().isEmpty() ? ", " + txtNumero.getText() : "") : "");
-            clienteDTO.setEstado(cmbEstado.getSelectedItem().toString());
+            clienteDTO.setEndereco(!sRua.isEmpty() ? sRua
+                    + (!sNumero.isEmpty() ? ", " + sNumero : "") : "");
+            clienteDTO.setEstado(sEstado);
             clienteDTO.setInadimplencia(false);
             clienteDTO.setNome(sNome);
             clienteDTO.setRg(sRg);
-            clienteDTO.setSexo(rbFeminino.isSelected() ? 'F' : 'M');
+            clienteDTO.setSexo(sSexo.charAt(0));
+            clienteDTO.setTelefone(sTelefone);
+            clienteDTO.setCelular(sCelular);
 
             clienteBO.cadastrar(clienteDTO);
             MensagensUtil.addMsg(this, "Cadastro efetuado com sucesso !!!");
-            btnLimparActionPerformed(evt);
+            btnLimparPesquisaActionPerformed(evt);
         } catch (Exception e) {
             e.printStackTrace();
             MensagensUtil.addMsg(this, e.getMessage());
@@ -473,7 +546,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
         getTableListPesquisa();
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+    private void btnLimparPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparPesquisaActionPerformed
         txtCodigo.setText("");
         txtNome.setText("");
         txtCpf.setText("");
@@ -492,8 +565,77 @@ public class CadClienteFrame extends javax.swing.JFrame {
         tabListagem.setModel(
                 new DefaultTableModel(
                         new Object[][]{},
-                        new String[]{"Nome", "CPF", "RG", "Sexo", "Dt. Nasc."}));
-    }//GEN-LAST:event_btnLimparActionPerformed
+                        new String[]{"Nome", "CPF", "RG", "Sexo", "Dt. Nasc.", ""}));
+        Utilidades.habilitaComponentes(new Component[]{btnAdicionar});
+        Utilidades.desabilitaComponentes(new Component[]{btnExcluir, btnSalvar});
+    }//GEN-LAST:event_btnLimparPesquisaActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        ClienteBO clienteBO = new ClienteBO();
+        ClienteDTO clienteDTO = new ClienteDTO();
+        try {
+            String sCodigo = !txtCodigo.getText().isEmpty() ? txtCodigo.getText() : "0";
+            String sNome = txtNome.getText();
+            String sCpf = txtCpf.getText();
+            String sRg = txtRG.getText();
+            String sRua = txtRua.getText();
+            String sNumero = txtNumero.getText();
+            String sBairro = txtBairro.getText();
+            String sCidade = txtCidade.getText();
+            String sSexo = rbFeminino.isSelected() ? "F" : "M";
+            String sCep = txtCep.getText();
+            String sDtNascimento = txtDtNascimento.getText();
+            String sFone = txtTelefone.getText() + txtCelular.getText();
+            String sEstado = cmbEstado.getSelectedItem().toString();
+            String sTelefone = txtTelefone.getText();
+            String sCelular = txtCelular.getText();
+
+            clienteBO.validaNome(sNome);
+            clienteBO.validaCpf(sCpf);
+            clienteBO.validaRg(sRg);
+            clienteBO.validaCidade(sCidade);
+            clienteBO.validaCep(sCep);
+            clienteBO.validaDtNasc(sDtNascimento);
+            clienteBO.validaFone(sFone);
+
+            clienteDTO.setBairro(sBairro);
+            clienteDTO.setCep(sCep);
+            clienteDTO.setCidade(sCidade);
+            clienteDTO.setCodigo(Integer.parseInt(sCodigo));
+            clienteDTO.setCpf(sCpf);
+            clienteDTO.setDtCadastro(new Date());
+            clienteDTO.setDtNascimento(dateFormat.parse(sDtNascimento));
+            clienteDTO.setEndereco(!sRua.isEmpty() ? sRua
+                    + (!sNumero.isEmpty() ? ", " + sNumero : "") : "");
+            clienteDTO.setEstado(sEstado);
+            clienteDTO.setInadimplencia(false);
+            clienteDTO.setNome(sNome);
+            clienteDTO.setRg(sRg);
+            clienteDTO.setSexo(sSexo.charAt(0));
+            clienteDTO.setTelefone(sTelefone);
+            clienteDTO.setCelular(sCelular);
+
+            clienteBO.salvar(clienteDTO);
+            MensagensUtil.addMsg(null, "Cliente alterado com sucesso !!!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            MensagensUtil.addMsg(null, e.getMessage());
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        ClienteBO clienteBO = new ClienteBO();
+        try {
+            String sCodigo = !txtCodigo.getText().isEmpty() ? txtCodigo.getText() : "0";
+            clienteBO.excluir(Integer.parseInt(sCodigo));
+            MensagensUtil.addMsg(null, "Cliente excluído com sucesso !!!");
+            btnLimparPesquisaActionPerformed(evt);
+            listaCodigo.remove(sCodigo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            MensagensUtil.addMsg(null, e.getMessage());
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -506,7 +648,9 @@ public class CadClienteFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollListagem;
     private javax.swing.JButton btnAdicionar;
-    private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnLimparCadastro;
+    private javax.swing.JButton btnLimparPesquisa;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox cmbEstado;
@@ -517,6 +661,8 @@ public class CadClienteFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -535,6 +681,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
     private javax.swing.JTable tabListagem;
     private javax.swing.JTabbedPane tabPanel;
     private javax.swing.JTextField txtBairro;
+    private javax.swing.JFormattedTextField txtCelular;
     private javax.swing.JFormattedTextField txtCep;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtCodigo;
@@ -547,12 +694,15 @@ public class CadClienteFrame extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtRG;
     private javax.swing.JFormattedTextField txtRgConsulta;
     private javax.swing.JTextField txtRua;
+    private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 
     private void initConf() {
         this.setLocationRelativeTo(null);
         Utilidades.AlteraIconeFrame(this,
                 new ImageIcon(this.getClass().getResource("/Imagens/icone64x64.png")));
+        listaCodigo = new ArrayList<>();
+        Utilidades.desabilitaComponentes(new Component[]{btnSalvar, btnExcluir});
     }
 
     private JTable getTableListPesquisa() {
@@ -560,19 +710,41 @@ public class CadClienteFrame extends javax.swing.JFrame {
         String sCpf = txtCpfConsulta.getText();
         String sRg = txtRgConsulta.getText();
 
-        ClienteBO clienteBO = new ClienteBO();
+        final ClienteBO clienteBO = new ClienteBO();
         try {
-            String[][] listaCliente = clienteBO.listaPesquisa(sNome, sCpf, sRg);
+            String[][] listaCliente = clienteBO.listaPesquisa(sNome, sCpf, sRg, listaCodigo);
             TableModel model = new DefaultTableModel(listaCliente,
                     new String[]{"Nome", "CPF", "RG", "Sexo", "Dt. Nasc.", ""});
             tabListagem.setModel(model);
             Action actionSelect = new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    JTable table = (JTable) actionEvent.getSource();
-                    
-                    int linha = Integer.parseInt(actionEvent.getActionCommand());
-                    JOptionPane.showMessageDialog(null, linha);
+                    try {
+                        JTable table = (JTable) actionEvent.getSource();
+                        int linha = Integer.parseInt(actionEvent.getActionCommand());
+                        if ((JOptionPane.showConfirmDialog(null, "Deseja alterar esse cliente?")) == JOptionPane.OK_OPTION) {
+                            ClienteDTO clienteDTO = clienteBO.selecionaPorCodigo(listaCodigo.get(linha));
+                            btnLimparPesquisaActionPerformed(actionEvent);
+                            tabPanel.setSelectedIndex(0);
+                            txtBairro.setText(clienteDTO.getBairro());
+                            txtCelular.setText(clienteDTO.getCelular());
+                            txtCep.setText(clienteDTO.getCep());
+                            txtCidade.setText(clienteDTO.getCidade());
+                            txtCodigo.setText(String.valueOf(clienteDTO.getCodigo()));
+                            txtCpf.setText(clienteDTO.getCpf());
+                            txtDtNascimento.setText(dateFormat.format(clienteDTO.getDtNascimento()));
+                            txtNome.setText(clienteDTO.getNome());
+                            txtNumero.setText(clienteDTO.getEndereco().split(",")[1]);
+                            txtRG.setText(clienteDTO.getRg());
+                            txtRua.setText(clienteDTO.getEndereco().split(",")[0]);
+                            txtTelefone.setText(clienteDTO.getTelefone());
+                            Utilidades.desabilitaComponentes(new Component[]{btnAdicionar});
+                            Utilidades.habilitaComponentes(new Component[]{btnExcluir, btnSalvar});
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        MensagensUtil.addMsg(null, e.getMessage());
+                    }
                 }
             };
             ButtonColumn buttonColumn = new ButtonColumn(tabListagem, actionSelect, 5);

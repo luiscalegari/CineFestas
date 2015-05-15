@@ -1,5 +1,6 @@
 package engenharia.cine.festa.util;
 
+import java.awt.Component;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
@@ -77,5 +78,17 @@ public class Utilidades {
         nDigResult = String.valueOf(digito1) + String.valueOf(digito2);
 
         return nDigVerific.equals(nDigResult);
+    }
+
+    public static void habilitaComponentes(Component[] component) {
+        for (Component c : component) {
+            c.setEnabled(true);
+        }
+    }
+    
+    public static void desabilitaComponentes(Component[] component) {
+        for (Component c : component) {
+            c.setEnabled(false);
+        }
     }
 }
