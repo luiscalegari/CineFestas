@@ -117,7 +117,7 @@
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtCpf" min="-2" pref="236" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" pref="33" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="32767" attributes="0"/>
                                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtRG" min="-2" pref="250" max="-2" attributes="0"/>
@@ -155,7 +155,6 @@
                                   <Component id="txtRua" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
                                   <Component id="btnLimparCadastro" min="-2" pref="100" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="btnExcluir" min="-2" pref="100" max="-2" attributes="0"/>
@@ -243,17 +242,17 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel2">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Nome:"/>
+                    <Property name="text" type="java.lang.String" value="* Nome:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel3">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="CPF:"/>
+                    <Property name="text" type="java.lang.String" value="* CPF:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel4">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="RG:"/>
+                    <Property name="text" type="java.lang.String" value="* RG:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel5">
@@ -273,12 +272,12 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel8">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="CEP:"/>
+                    <Property name="text" type="java.lang.String" value="* CEP:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel9">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Cidade:"/>
+                    <Property name="text" type="java.lang.String" value="* Cidade:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel10">
@@ -288,7 +287,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel11">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Dt. Nascimento:"/>
+                    <Property name="text" type="java.lang.String" value="* Dt. Nascimento:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtCodigo">
@@ -456,7 +455,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel15">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Telefone"/>
+                    <Property name="text" type="java.lang.String" value="* Telefone"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="txtTelefone">
@@ -534,7 +533,7 @@
                                   <Component id="txtRgConsulta" linkSize="6" min="-2" pref="150" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnPesquisar" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <EmptySpace pref="7" max="32767" attributes="0"/>
+                                  <EmptySpace pref="10" max="32767" attributes="0"/>
                                   <Component id="btnLimparPesquisa" min="-2" pref="100" max="-2" attributes="0"/>
                               </Group>
                           </Group>

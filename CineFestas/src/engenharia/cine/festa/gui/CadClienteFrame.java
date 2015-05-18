@@ -25,6 +25,7 @@ import javax.swing.table.TableModel;
 public class CadClienteFrame extends javax.swing.JFrame {
 
     private List<Integer> listaCodigo;
+    private int linha;
 
     public CadClienteFrame() {
         initComponents();
@@ -93,11 +94,11 @@ public class CadClienteFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Código:");
 
-        jLabel2.setText("Nome:");
+        jLabel2.setText("* Nome:");
 
-        jLabel3.setText("CPF:");
+        jLabel3.setText("* CPF:");
 
-        jLabel4.setText("RG:");
+        jLabel4.setText("* RG:");
 
         jLabel5.setText("Rua:");
 
@@ -105,13 +106,13 @@ public class CadClienteFrame extends javax.swing.JFrame {
 
         jLabel7.setText("Bairro:");
 
-        jLabel8.setText("CEP:");
+        jLabel8.setText("* CEP:");
 
-        jLabel9.setText("Cidade:");
+        jLabel9.setText("* Cidade:");
 
         jLabel10.setText("Estado:");
 
-        jLabel11.setText("Dt. Nascimento:");
+        jLabel11.setText("* Dt. Nascimento:");
 
         txtCodigo.setEnabled(false);
 
@@ -187,7 +188,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel15.setText("Telefone");
+        jLabel15.setText("* Telefone");
 
         try {
             txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) - ########")));
@@ -249,7 +250,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 33, Short.MAX_VALUE)
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -282,7 +283,6 @@ public class CadClienteFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtRua))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCadastroLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnLimparCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -426,7 +426,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
                         .addComponent(txtRgConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                         .addComponent(btnLimparPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -562,6 +562,8 @@ public class CadClienteFrame extends javax.swing.JFrame {
         txtNomeConsulta.setText("");
         txtCpfConsulta.setText("");
         txtRgConsulta.setText("");
+        txtCelular.setText("");
+        txtTelefone.setText("");
         tabListagem.setModel(
                 new DefaultTableModel(
                         new Object[][]{},
@@ -630,7 +632,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
             clienteBO.excluir(Integer.parseInt(sCodigo));
             MensagensUtil.addMsg(null, "Cliente excluído com sucesso !!!");
             btnLimparPesquisaActionPerformed(evt);
-            listaCodigo.remove(sCodigo);
+            listaCodigo.remove(linha);
         } catch (Exception e) {
             e.printStackTrace();
             MensagensUtil.addMsg(null, e.getMessage());
@@ -702,6 +704,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
         Utilidades.AlteraIconeFrame(this,
                 new ImageIcon(this.getClass().getResource("/Imagens/icone64x64.png")));
         listaCodigo = new ArrayList<>();
+        linha = 0;
         Utilidades.desabilitaComponentes(new Component[]{btnSalvar, btnExcluir});
     }
 
@@ -721,7 +724,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
                 public void actionPerformed(ActionEvent actionEvent) {
                     try {
                         JTable table = (JTable) actionEvent.getSource();
-                        int linha = Integer.parseInt(actionEvent.getActionCommand());
+                        linha = Integer.parseInt(actionEvent.getActionCommand());
                         if ((JOptionPane.showConfirmDialog(null, "Deseja alterar esse cliente?")) == JOptionPane.OK_OPTION) {
                             ClienteDTO clienteDTO = clienteBO.selecionaPorCodigo(listaCodigo.get(linha));
                             btnLimparPesquisaActionPerformed(actionEvent);
