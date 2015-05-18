@@ -4,9 +4,7 @@ import engenharia.cine.festa.dao.ClienteDAO;
 import engenharia.cine.festa.dto.ClienteDTO;
 import engenharia.cine.festa.exception.NegocioException;
 import engenharia.cine.festa.exception.ValidacaoException;
-import engenharia.cine.festa.jdbc.ConexaoUtil;
 import engenharia.cine.festa.util.Utilidades;
-import java.sql.Connection;
 import java.util.List;
 
 /**

@@ -22,7 +22,7 @@ public class Main {
             MensagensUtil.addMsg(null, e.getMessage());
         }
 
-        new CadClienteFrame().setVisible(true);
-//        new CadFestaFrame().setVisible(true);
+//        new CadClienteFrame().setVisible(true);
+        new CadFestaFrame().setVisible(true);
     }
 }
