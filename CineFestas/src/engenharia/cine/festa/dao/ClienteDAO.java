@@ -224,4 +224,49 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
         return listaCliente;
     }
 
+    public ClienteDTO buscarPorCpfRg(String cpf, String rg) throws PersistenciaException {
+        ClienteDTO cdto = null;
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sSQL = ""
+                    + "select codigo, nome, cpf, rg from cliente";
+            boolean ultimo = false;
+            if (!cpf.equals("   .   .   -  ")) {
+                sSQL += " where cpf = ?";
+                ultimo = true;
+            }
+
+            if (!rg.isEmpty()) {
+                if (ultimo) {
+                    sSQL += " and rg = ?";
+                } else {
+                    sSQL += " where rg = ?";
+                }
+            }
+
+            PreparedStatement st = connection.prepareStatement(sSQL);
+            int cont = 0;
+            if (!cpf.equals("   .   .   -  ")) {
+                st.setString(++cont, cpf);
+            }
+            if (!rg.isEmpty()) {
+                st.setString(++cont, rg);
+            }
+
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                cdto = new ClienteDTO();
+                cdto.setCodigo(rs.getInt("codigo"));
+                cdto.setCpf(rs.getString("cpf"));
+                cdto.setRg(rs.getString("rg"));
+                cdto.setNome(rs.getString("nome"));
+            }
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenciaException(e.getMessage());
+        }
+        return cdto;
+    }
+
 }

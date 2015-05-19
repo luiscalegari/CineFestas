@@ -72,7 +72,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
         txtCelular = new javax.swing.JFormattedTextField();
         btnLimparCadastro = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
-        txtRg = new engenharia.cine.festa.util.JtextFieldSomenteNumeros(11);
+        txtRg = new engenharia.cine.festa.util.JtextFieldSomenteNumeros(9);
         jLabel17 = new javax.swing.JLabel();
         pnlConsulta = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -85,7 +85,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
         txtCpfConsulta = new javax.swing.JFormattedTextField();
         btnPesquisar = new javax.swing.JButton();
         btnLimparPesquisa = new javax.swing.JButton();
-        txtRgConsulta = new engenharia.cine.festa.util.JtextFieldSomenteNumeros(11);
+        txtRgConsulta = new engenharia.cine.festa.util.JtextFieldSomenteNumeros(9);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Cliente");
@@ -191,7 +191,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        jLabel16.setText("Celular:");
+        jLabel16.setText("* Celular:");
 
         try {
             txtCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) - #########")));

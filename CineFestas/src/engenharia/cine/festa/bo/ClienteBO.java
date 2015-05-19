@@ -37,7 +37,7 @@ public class ClienteBO {
             ehValido = false;
             throw new ValidacaoException("Campo CPF é obrigatório !!!");
         } else if (!Utilidades.isCpf(cpf)) {
-            ehValido = true;
+            ehValido = false;
             throw new ValidacaoException("CPF inválido !!!");
         }
         return ehValido;
@@ -45,7 +45,7 @@ public class ClienteBO {
 
     public boolean validaRg(String rg) throws ValidacaoException {
         boolean ehValido = true;
-        if (rg.equals("  .   .   - ")) {
+        if (rg.isEmpty()) {
             ehValido = false;
             throw new ValidacaoException("Campo RG é obrigatório !!!");
         }

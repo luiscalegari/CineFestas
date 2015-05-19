@@ -373,6 +373,7 @@ public class CadFestaFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLimparPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparPesquisaActionPerformed
+        this.setCursor(WAIT_CURSOR);
         txtCodigo.setText("");
         txtDtEvento.setText(dateFormat.format(new Date()));
         txtDtConcepcao.setText(dateFormat.format(new Date()));
@@ -390,9 +391,11 @@ public class CadFestaFrame extends javax.swing.JFrame {
         Utilidades.habilitaComponentes(new Component[]{btnAdicionar});
         Utilidades.desabilitaComponentes(new Component[]{btnExcluir, btnSalvar});
         txtAtracao.grabFocus();
+        this.setCursor(DEFAULT_CURSOR);
     }//GEN-LAST:event_btnLimparPesquisaActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        this.setCursor(WAIT_CURSOR);
         FestaBO festaBO = new FestaBO();
         FestaDTO festaDTO = new FestaDTO();
         try {
@@ -428,13 +431,17 @@ public class CadFestaFrame extends javax.swing.JFrame {
             e.printStackTrace();
             MensagensUtil.addMsg(null, e.getMessage());
         }
+        this.setCursor(DEFAULT_CURSOR);
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        this.setCursor(WAIT_CURSOR);
         getTableListPesquisa();
+        this.setCursor(DEFAULT_CURSOR);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        this.setCursor(WAIT_CURSOR);
         FestaBO festaBO = new FestaBO();
         try {
             String sCodigo = !txtCodigo.getText().isEmpty() ? txtCodigo.getText() : "0";
@@ -446,9 +453,11 @@ public class CadFestaFrame extends javax.swing.JFrame {
             e.printStackTrace();
             MensagensUtil.addMsg(null, e.getMessage());
         }
+        this.setCursor(DEFAULT_CURSOR);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        this.setCursor(WAIT_CURSOR);
         FestaBO festaBO = new FestaBO();
         FestaDTO festaDTO = new FestaDTO();
         try {
@@ -476,7 +485,7 @@ public class CadFestaFrame extends javax.swing.JFrame {
             festaDTO.setPublicoEsperado(Integer.parseInt(sPublicoEsperado));
             festaDTO.setInvestimentoInicial(Float.parseFloat(sInvestimentoInicial));
             festaDTO.setResponsaveisEvento(sResponsaveisEvento);
-            
+
             festaBO.salvar(festaDTO);
             MensagensUtil.addMsg(null, "Festa Alterada com sucesso !!!");
             btnLimparPesquisaActionPerformed(null);
@@ -484,6 +493,7 @@ public class CadFestaFrame extends javax.swing.JFrame {
             e.printStackTrace();
             MensagensUtil.addMsg(null, e.getMessage());
         }
+        this.setCursor(DEFAULT_CURSOR);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     public static void main(String args[]) {
