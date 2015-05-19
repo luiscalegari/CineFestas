@@ -21,9 +21,9 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
             String sSQL = ""
-                    + "INSERT INTO CLIENTE("
-                    + " NOME, CEP, ENDERECO, BAIRRO, CIDADE, CPF, RG, SEXO, DTNASCIMENTO, DTCADASTRO, INADIMPLENCIA, ESTADO, TELEFONE, CELULAR )"
-                    + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE(), ?, ?, ?, ?)";
+                    + "insert into cliente("
+                    + " nome, cep, endereco, bairro, cidade, cpf, rg, sexo, dtnascimento, dtcadastro, inadimplencia, estado, telefone, celular )"
+                    + " values(?, ?, ?, ?, ?, ?, ?, ?, ?, curdate(), ?, ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(sSQL);
             statement.setString(1, obj.getNome());
@@ -54,11 +54,21 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
             Connection connection = ConexaoUtil.getInstance().getConnection();
 
             String sSQL = ""
-                    + "UPDATE CLIENTE"
-                    + " SET NOME = ?, CEP = ?, ENDERECO = ?, BAIRRO = ?,"
-                    + " CIDADE = ?, CPF = ?, RG = ?, SEXO = ?, DTNASCIMENTO = ?,"
-                    + " DTCADASTRO = ?, INADIMPENCIA = ?, TELEFONE = ?, CELULAR = ?, ESTADO = ?"
-                    + " WHERE CODIGO = ?";
+                    + "update cliente"
+                    + " set nome = ?,"
+                    + " cep = ?,"
+                    + " endereco = ?,"
+                    + " bairro = ?,"
+                    + " cidade = ?,"
+                    + " cpf = ?,"
+                    + " rg = ?,"
+                    + " sexo = ?,"
+                    + " dtnascimento = ?,"
+                    + " inadimplencia = ?,"
+                    + " telefone = ?,"
+                    + " celular = ?,"
+                    + " estado = ?"
+                    + " where codigo = ?";
 
             PreparedStatement statement = connection.prepareStatement(sSQL);
             statement.setString(1, obj.getNome());
@@ -71,9 +81,10 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
             statement.setString(8, obj.getSexo().toString());
             statement.setDate(9, new Date(obj.getDtNascimento().getTime()));
             statement.setBoolean(10, false);
-            statement.setString(11, obj.getEstado());
             statement.setString(12, obj.getTelefone());
             statement.setString(13, obj.getCelular());
+            statement.setString(11, obj.getEstado());
+            statement.setInt(14, obj.getCodigo());
 
             statement.execute();
             connection.close();
@@ -87,7 +98,7 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
     public void excluir(Integer codigo) throws PersistenciaException {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
-            String sSQl = "DELETE FROM CLIENTE WHERE CODIGO  = ?";
+            String sSQl = "delete from cliente where codigo  = ?";
             PreparedStatement statement = connection.prepareStatement(sSQl);
             statement.setInt(1, codigo);
             statement.execute();
@@ -107,27 +118,27 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
         ClienteDTO clienteDTO = null;
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
-            String sSQL = "SELECT * FROM CLIENTE WHERE CODIGO = ?";
+            String sSQL = "select * from cliente where codigo = ?";
             PreparedStatement statement = connection.prepareStatement(sSQL);
             statement.setInt(1, codigo);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 clienteDTO = new ClienteDTO();
-                clienteDTO.setBairro(rs.getString("BAIRRO"));
-                clienteDTO.setCep(String.valueOf(rs.getInt("CEP")));
-                clienteDTO.setCidade(rs.getString("CIDADE"));
-                clienteDTO.setCodigo(rs.getInt("CODIGO"));
-                clienteDTO.setCpf(rs.getString("CPF"));
-                clienteDTO.setDtCadastro(rs.getDate("DTCADASTRO"));
-                clienteDTO.setDtNascimento(rs.getDate("DTNASCIMENTO"));
-                clienteDTO.setEndereco(rs.getString("ENDERECO"));
-                clienteDTO.setInadimplencia(rs.getBoolean("INADIMPLENCIA"));
-                clienteDTO.setNome(rs.getString("NOME"));
-                clienteDTO.setRg(rs.getString("RG"));
-                clienteDTO.setSexo(rs.getString("SEXO").charAt(0));
-                clienteDTO.setEstado(rs.getString("ESTADO"));
-                clienteDTO.setTelefone(rs.getString("TELEFONE"));
-                clienteDTO.setCelular(rs.getString("CELULAR"));
+                clienteDTO.setBairro(rs.getString("bairro"));
+                clienteDTO.setCep(String.valueOf(rs.getInt("cep")));
+                clienteDTO.setCidade(rs.getString("cidade"));
+                clienteDTO.setCodigo(rs.getInt("codigo"));
+                clienteDTO.setCpf(rs.getString("cpf"));
+                clienteDTO.setDtCadastro(rs.getDate("dtcadastro"));
+                clienteDTO.setDtNascimento(rs.getDate("dtnascimento"));
+                clienteDTO.setEndereco(rs.getString("endereco"));
+                clienteDTO.setInadimplencia(rs.getBoolean("inadimplencia"));
+                clienteDTO.setNome(rs.getString("nome"));
+                clienteDTO.setRg(rs.getString("rg"));
+                clienteDTO.setSexo(rs.getString("sexo").charAt(0));
+                clienteDTO.setEstado(rs.getString("estado"));
+                clienteDTO.setTelefone(rs.getString("telefone"));
+                clienteDTO.setCelular(rs.getString("celular"));
             }
             connection.close();
         } catch (Exception e) {
@@ -142,31 +153,31 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
             String sSQL = ""
-                    + "SELECT * FROM CLIENTE";
+                    + "select * from cliente";
             boolean ultimo = false;
             if (!nome.isEmpty()) {
-                sSQL += " WHERE NOME LIKE ?";
+                sSQL += " where nome like ?";
                 ultimo = true;
             }
 
             if (!cpf.equals("   .   .   -  ")) {
                 if (!ultimo) {
-                    sSQL += " WHERE CPF = ?";
+                    sSQL += " where cpf = ?";
                     ultimo = true;
                 } else {
-                    sSQL += " AND CPF = ?";
+                    sSQL += " and cpf = ?";
                 }
             }
 
-            if (!rg.equals("  .   .   - ")) {
+            if (!rg.isEmpty()) {
                 if (!ultimo) {
-                    sSQL += "WHERE RG = ?";
+                    sSQL += "where rg = ?";
                     ultimo = true;
                 } else {
-                    sSQL += " AND RG = ?";
+                    sSQL += " and rg = ?";
                 }
             }
-            sSQL += " ORDER BY NOME";
+            sSQL += " order by nome";
 
             PreparedStatement statement = connection.prepareStatement(sSQL);
             int cont = 0;
@@ -178,7 +189,7 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
                 statement.setString(++cont, cpf);
             }
 
-            if (!rg.equals("  .   .   - ")) {
+            if (!rg.isEmpty()) {
                 statement.setString(++cont, rg);
             }
 
@@ -186,21 +197,21 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
 
             while (rs.next()) {
                 ClienteDTO clienteDTO = new ClienteDTO();
-                clienteDTO.setBairro(rs.getString("BAIRRO"));
-                clienteDTO.setCep(String.valueOf(rs.getInt("CEP")));
-                clienteDTO.setCidade(rs.getString("CIDADE"));
-                clienteDTO.setCodigo(rs.getInt("CODIGO"));
-                clienteDTO.setCpf(rs.getString("CPF"));
-                clienteDTO.setDtCadastro(rs.getDate("DTCADASTRO"));
-                clienteDTO.setDtNascimento(rs.getDate("DTNASCIMENTO"));
-                clienteDTO.setEndereco(rs.getString("ENDERECO"));
-                clienteDTO.setInadimplencia(rs.getBoolean("INADIMPLENCIA"));
-                clienteDTO.setNome(rs.getString("NOME"));
-                clienteDTO.setRg(rs.getString("RG"));
-                clienteDTO.setSexo(rs.getString("SEXO").charAt(0));
-                clienteDTO.setEstado(rs.getString("ESTADO"));
-                clienteDTO.setTelefone(rs.getString("TELEFONE"));
-                clienteDTO.setCelular(rs.getString("CELULAR"));
+                clienteDTO.setBairro(rs.getString("bairro"));
+                clienteDTO.setCep(String.valueOf(rs.getInt("cep")));
+                clienteDTO.setCidade(rs.getString("cidade"));
+                clienteDTO.setCodigo(rs.getInt("codigo"));
+                clienteDTO.setCpf(rs.getString("cpf"));
+                clienteDTO.setDtCadastro(rs.getDate("dtcadastro"));
+                clienteDTO.setDtNascimento(rs.getDate("dtnascimento"));
+                clienteDTO.setEndereco(rs.getString("endereco"));
+                clienteDTO.setInadimplencia(rs.getBoolean("inadimplencia"));
+                clienteDTO.setNome(rs.getString("nome"));
+                clienteDTO.setRg(rs.getString("rg"));
+                clienteDTO.setSexo(rs.getString("sexo").charAt(0));
+                clienteDTO.setEstado(rs.getString("estado"));
+                clienteDTO.setTelefone(rs.getString("telefone"));
+                clienteDTO.setCelular(rs.getString("celular"));
 
                 listaCliente.add(clienteDTO);
             }

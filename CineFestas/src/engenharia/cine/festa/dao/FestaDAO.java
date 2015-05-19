@@ -1,6 +1,5 @@
 package engenharia.cine.festa.dao;
 
-import com.sun.beans.finder.PrimitiveWrapperMap;
 import engenharia.cine.festa.dto.FestaDTO;
 import engenharia.cine.festa.exception.PersistenciaException;
 import engenharia.cine.festa.jdbc.ConexaoUtil;
@@ -23,9 +22,9 @@ public class FestaDAO implements GenericoDAO<FestaDTO> {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
             String sSQL = ""
-                    + "INSERT INTO FESTA("
-                    + " DTEVENTO, DTCONCEPCAO, DTCADASTRO, DESCRICAO, ATRACAO, PUBLICOESPERADO, RESPONSAVEISEVENTO, INVESTIMENTOINICIAL)"
-                    + " VALUES(?, ?, CURDATE(), ?, ?, ?, ?, ?)";
+                    + "insert into festa("
+                    + " dtevento, dtconcepcao, dtcadastro, descricao, atracao, publicoesperado, responsaveisevento, investimentoinicial)"
+                    + " values(?, ?, curdate(), ?, ?, ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(sSQL);
             statement.setDate(1, new Date(obj.getDtevento().getTime()));
@@ -49,11 +48,15 @@ public class FestaDAO implements GenericoDAO<FestaDTO> {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
             String sSQL = ""
-                    + "UPDATE FESTA"
-                    + " SET DTEVENTO = ?, DTCONCEPCAO = ?,"
-                    + " DESCRICAO ?, ATRACAO = ?, PUBLICOESPERADO = ?,"
-                    + " RESPONSAVEISEVENTO = ?, INVESTIMENTOINICIAL = ? "
-                    + " WHERE CODIGO = ?";
+                    + "update festa"
+                    + " set dtevento = ?,"
+                    + " dtconcepcao = ?,"
+                    + " descricao = ?,"
+                    + " atracao = ?,"
+                    + " publicoesperado = ?,"
+                    + " responsaveisevento = ?,"
+                    + " investimentoinicial = ? "
+                    + " where codigo = ?";
             PreparedStatement st = connection.prepareStatement(sSQL);
             st.setDate(1, new Date(obj.getDtevento().getTime()));
             st.setDate(2, new Date(obj.getDtconcepcao().getTime()));
@@ -75,7 +78,7 @@ public class FestaDAO implements GenericoDAO<FestaDTO> {
     public void excluir(Integer codigo) throws PersistenciaException {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
-            String sSQL = "DELETE FROM FESTA WHERE CODIGO = ?";
+            String sSQL = "delete from festa where codigo = ?";
             PreparedStatement statement = connection.prepareStatement(sSQL);
             statement.setInt(1, codigo);
             statement.execute();
@@ -96,21 +99,21 @@ public class FestaDAO implements GenericoDAO<FestaDTO> {
         FestaDTO festaDTO = null;
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
-            String sSQL = "SELECT * FROM FESTA WHERE CODIGO = ?";
+            String sSQL = "select * from festa where codigo = ?";
             PreparedStatement statement = connection.prepareStatement(sSQL);
             statement.setInt(1, codigo);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 festaDTO = new FestaDTO();
-                festaDTO.setAtracao(rs.getString("ATRACAO"));
-                festaDTO.setCodigo(rs.getInt("CODIGO"));
-                festaDTO.setDescricao(rs.getString("DESCRICAO"));
-                festaDTO.setDtcadastro(rs.getDate("DTCADASTRO"));
-                festaDTO.setDtconcepcao(rs.getDate("DTCONCEPCAO"));
-                festaDTO.setDtevento(rs.getDate("DTEVENTO"));
-                festaDTO.setInvestimentoInicial(rs.getFloat("INVESTIMENTOINICIAL"));
-                festaDTO.setPublicoEsperado(rs.getInt("PUBLICOESPERADO"));
-                festaDTO.setResponsaveisEvento(rs.getString("RESPONSAVEISEVENTO"));
+                festaDTO.setAtracao(rs.getString("atracao"));
+                festaDTO.setCodigo(rs.getInt("codigo"));
+                festaDTO.setDescricao(rs.getString("descricao"));
+                festaDTO.setDtcadastro(rs.getDate("dtcadastro"));
+                festaDTO.setDtconcepcao(rs.getDate("dtconcepcao"));
+                festaDTO.setDtevento(rs.getDate("dtevento"));
+                festaDTO.setInvestimentoInicial(rs.getFloat("investimentoinicial"));
+                festaDTO.setPublicoEsperado(rs.getInt("publicoesperado"));
+                festaDTO.setResponsaveisEvento(rs.getString("responsaveisevento"));
             }
             connection.close();
         } catch (Exception e) {
@@ -125,20 +128,20 @@ public class FestaDAO implements GenericoDAO<FestaDTO> {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
             boolean ultimo = false;
-            String sSQL = "SELECT * FROM FESTA";
+            String sSQL = "select * from festa";
             if (!sDtEvento.equals("  /  /    ")) {
-                sSQL += " WHERE DTEVENTO = ?";
+                sSQL += " where dtevento = ?";
                 ultimo = true;
             }
             if (!sAtracao.isEmpty()) {
                 if (!ultimo) {
-                    sSQL += " WHERE ATRACAO LIKE ?";
+                    sSQL += " where atracao like ?";
                     ultimo = true;
                 } else {
-                    sSQL += " AND ATRACAO LIKE ?";
+                    sSQL += " and atracao like ?";
                 }
             }
-            sSQL += " ORDER BY ATRACAO";
+            sSQL += " order by atracao";
 
             PreparedStatement statement = connection.prepareCall(sSQL);
             int cont = 0;
@@ -152,15 +155,15 @@ public class FestaDAO implements GenericoDAO<FestaDTO> {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 FestaDTO festaDTO = new FestaDTO();
-                festaDTO.setAtracao(rs.getString("ATRACAO"));
-                festaDTO.setCodigo(rs.getInt("CODIGO"));
-                festaDTO.setDescricao(rs.getString("DESCRICAO"));
-                festaDTO.setDtcadastro(rs.getDate("DTCADASTRO"));
-                festaDTO.setDtconcepcao(rs.getDate("DTCONCEPCAO"));
-                festaDTO.setDtevento(rs.getDate("DTEVENTO"));
-                festaDTO.setInvestimentoInicial(rs.getFloat("INVESTIMENTOINICIAL"));
-                festaDTO.setPublicoEsperado(rs.getInt("PUBLICOESPERADO"));
-                festaDTO.setResponsaveisEvento(rs.getString("RESPONSAVEISEVENTO"));
+                festaDTO.setAtracao(rs.getString("atracao"));
+                festaDTO.setCodigo(rs.getInt("codigo"));
+                festaDTO.setDescricao(rs.getString("descricao"));
+                festaDTO.setDtcadastro(rs.getDate("dtcadastro"));
+                festaDTO.setDtconcepcao(rs.getDate("dtconcepcao"));
+                festaDTO.setDtevento(rs.getDate("dtevento"));
+                festaDTO.setInvestimentoInicial(rs.getFloat("investimentoinicial"));
+                festaDTO.setPublicoEsperado(rs.getInt("publicoesperado"));
+                festaDTO.setResponsaveisEvento(rs.getString("responsaveisevento"));
 
                 listaFesta.add(festaDTO);
             }

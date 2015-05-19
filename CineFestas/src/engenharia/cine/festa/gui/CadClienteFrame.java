@@ -4,7 +4,6 @@ import engenharia.cine.festa.bo.ClienteBO;
 import engenharia.cine.festa.dto.ClienteDTO;
 import engenharia.cine.festa.util.MensagensUtil;
 import engenharia.cine.festa.util.Utilidades;
-import static engenharia.cine.festa.util.Utilidades.dateFormat;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -17,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import static engenharia.cine.festa.util.Utilidades.dateFormat;
 
 /**
  *
@@ -54,7 +54,6 @@ public class CadClienteFrame extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         txtNome = new engenharia.cine.festa.util.JtextFieldSomenteLetras(70);
         txtCpf = new javax.swing.JFormattedTextField();
-        txtRG = new javax.swing.JFormattedTextField();
         txtRua = new engenharia.cine.festa.util.JtextFieldSomenteLetras(65);
         txtNumero = new engenharia.cine.festa.util.JtextFieldSomenteNumeros(5);
         txtBairro = new engenharia.cine.festa.util.JtextFieldSomenteLetras(70);
@@ -73,6 +72,8 @@ public class CadClienteFrame extends javax.swing.JFrame {
         txtCelular = new javax.swing.JFormattedTextField();
         btnLimparCadastro = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
+        txtRg = new engenharia.cine.festa.util.JtextFieldSomenteNumeros(11);
+        jLabel17 = new javax.swing.JLabel();
         pnlConsulta = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         txtNomeConsulta = new engenharia.cine.festa.util.JtextFieldSomenteLetras(70);
@@ -82,9 +83,9 @@ public class CadClienteFrame extends javax.swing.JFrame {
         ScrollListagem = new javax.swing.JScrollPane();
         tabListagem = new javax.swing.JTable();
         txtCpfConsulta = new javax.swing.JFormattedTextField();
-        txtRgConsulta = new javax.swing.JFormattedTextField();
         btnPesquisar = new javax.swing.JButton();
         btnLimparPesquisa = new javax.swing.JButton();
+        txtRgConsulta = new engenharia.cine.festa.util.JtextFieldSomenteNumeros(11);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Cliente");
@@ -118,12 +119,6 @@ public class CadClienteFrame extends javax.swing.JFrame {
 
         try {
             txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            txtRG.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -218,6 +213,9 @@ public class CadClienteFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel17.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel17.setText("IMPORTANTE: Campos que estão marcados com o caracter * são de preenchimento obrigatório.");
+
         javax.swing.GroupLayout pnlCadastroLayout = new javax.swing.GroupLayout(pnlCadastro);
         pnlCadastro.setLayout(pnlCadastroLayout);
         pnlCadastroLayout.setHorizontalGroup(
@@ -253,7 +251,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
                         .addGap(18, 18, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlCadastroLayout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -289,7 +287,10 @@ public class CadClienteFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlCadastroLayout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlCadastroLayout.setVerticalGroup(
@@ -306,7 +307,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -338,12 +339,14 @@ public class CadClienteFrame extends javax.swing.JFrame {
                             .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16)
                             .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionar)
                     .addComponent(btnSalvar)
                     .addComponent(btnLimparCadastro)
-                    .addComponent(btnExcluir)))
+                    .addComponent(btnExcluir))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jLabel17))
         );
 
         tabPanel.addTab("Cadastro", pnlCadastro);
@@ -384,12 +387,6 @@ public class CadClienteFrame extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        try {
-            txtRgConsulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -422,17 +419,14 @@ public class CadClienteFrame extends javax.swing.JFrame {
                         .addComponent(txtCpfConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel14)
-                        .addGap(6, 6, 6)
-                        .addComponent(txtRgConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtRgConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                         .addComponent(btnLimparPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-
-        pnlConsultaLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtCpfConsulta, txtRgConsulta});
-
         pnlConsultaLayout.setVerticalGroup(
             pnlConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlConsultaLayout.createSequentialGroup()
@@ -445,15 +439,13 @@ public class CadClienteFrame extends javax.swing.JFrame {
                     .addComponent(jLabel13)
                     .addComponent(jLabel14)
                     .addComponent(txtCpfConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRgConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar)
-                    .addComponent(btnLimparPesquisa))
+                    .addComponent(btnLimparPesquisa)
+                    .addComponent(txtRgConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlListagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        pnlConsultaLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtCpfConsulta, txtRgConsulta});
 
         tabPanel.addTab("Consulta", pnlConsulta);
 
@@ -489,13 +481,14 @@ public class CadClienteFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        this.setCursor(WAIT_CURSOR);
         ClienteDTO clienteDTO = new ClienteDTO();
         ClienteBO clienteBO = new ClienteBO();
         try {
             String sCodigo = !txtCodigo.getText().isEmpty() ? txtCodigo.getText() : "0";
             String sNome = txtNome.getText();
             String sCpf = txtCpf.getText();
-            String sRg = txtRG.getText();
+            String sRg = txtRg.getText();
             String sRua = txtRua.getText();
             String sNumero = txtNumero.getText();
             String sBairro = txtBairro.getText();
@@ -536,6 +529,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
             clienteBO.cadastrar(clienteDTO);
             MensagensUtil.addMsg(this, "Cadastro efetuado com sucesso !!!");
             btnLimparPesquisaActionPerformed(evt);
+            this.setCursor(DEFAULT_CURSOR);
         } catch (Exception e) {
             e.printStackTrace();
             MensagensUtil.addMsg(this, e.getMessage());
@@ -543,14 +537,17 @@ public class CadClienteFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        this.setCursor(WAIT_CURSOR);
         getTableListPesquisa();
+        this.setCursor(DEFAULT_CURSOR);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnLimparPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparPesquisaActionPerformed
+        this.setCursor(WAIT_CURSOR);
         txtCodigo.setText("");
         txtNome.setText("");
         txtCpf.setText("");
-        txtRG.setText("");
+        txtRg.setText("");
         txtRua.setText("");
         txtNumero.setText("");
         txtBairro.setText("");
@@ -570,16 +567,18 @@ public class CadClienteFrame extends javax.swing.JFrame {
                         new String[]{"Nome", "CPF", "RG", "Sexo", "Dt. Nasc.", ""}));
         Utilidades.habilitaComponentes(new Component[]{btnAdicionar});
         Utilidades.desabilitaComponentes(new Component[]{btnExcluir, btnSalvar});
+        this.setCursor(DEFAULT_CURSOR);
     }//GEN-LAST:event_btnLimparPesquisaActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        this.setCursor(WAIT_CURSOR);
         ClienteBO clienteBO = new ClienteBO();
         ClienteDTO clienteDTO = new ClienteDTO();
         try {
             String sCodigo = !txtCodigo.getText().isEmpty() ? txtCodigo.getText() : "0";
             String sNome = txtNome.getText();
             String sCpf = txtCpf.getText();
-            String sRg = txtRG.getText();
+            String sRg = txtRg.getText();
             String sRua = txtRua.getText();
             String sNumero = txtNumero.getText();
             String sBairro = txtBairro.getText();
@@ -619,6 +618,8 @@ public class CadClienteFrame extends javax.swing.JFrame {
 
             clienteBO.salvar(clienteDTO);
             MensagensUtil.addMsg(null, "Cliente alterado com sucesso !!!");
+            btnLimparPesquisaActionPerformed(null);
+            this.setCursor(DEFAULT_CURSOR);
         } catch (Exception e) {
             e.printStackTrace();
             MensagensUtil.addMsg(null, e.getMessage());
@@ -665,6 +666,7 @@ public class CadClienteFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -693,8 +695,8 @@ public class CadClienteFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNomeConsulta;
     private javax.swing.JTextField txtNumero;
-    private javax.swing.JFormattedTextField txtRG;
-    private javax.swing.JFormattedTextField txtRgConsulta;
+    private javax.swing.JTextField txtRg;
+    private javax.swing.JTextField txtRgConsulta;
     private javax.swing.JTextField txtRua;
     private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
@@ -737,10 +739,13 @@ public class CadClienteFrame extends javax.swing.JFrame {
                             txtCpf.setText(clienteDTO.getCpf());
                             txtDtNascimento.setText(dateFormat.format(clienteDTO.getDtNascimento()));
                             txtNome.setText(clienteDTO.getNome());
-                            txtNumero.setText(clienteDTO.getEndereco().split(",")[1]);
-                            txtRG.setText(clienteDTO.getRg());
-                            txtRua.setText(clienteDTO.getEndereco().split(",")[0]);
+                            txtNumero.setText(!clienteDTO.getEndereco().isEmpty() ? clienteDTO.getEndereco().split(",")[1] : "");
+//                            txtNumero.setText(clienteDTO.getEndereco().split(",")[1].isEmpty() ? clienteDTO.getEndereco().split(",")[1] : "");
+                            txtRg.setText(clienteDTO.getRg());
+                            txtRua.setText(!clienteDTO.getEndereco().isEmpty() ? clienteDTO.getEndereco().split(",")[0] : "");
+//                            txtRua.setText(clienteDTO.getEndereco().split(",")[0].isEmpty() ? clienteDTO.getEndereco().split(",")[0] : "");
                             txtTelefone.setText(clienteDTO.getTelefone());
+                            rbMasculino.setSelected(clienteDTO.getSexo() == 'M');
                             Utilidades.desabilitaComponentes(new Component[]{btnAdicionar});
                             Utilidades.habilitaComponentes(new Component[]{btnExcluir, btnSalvar});
                         }
