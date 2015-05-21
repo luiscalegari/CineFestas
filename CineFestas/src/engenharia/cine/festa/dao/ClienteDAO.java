@@ -3,10 +3,12 @@ package engenharia.cine.festa.dao;
 import engenharia.cine.festa.dto.ClienteDTO;
 import engenharia.cine.festa.exception.PersistenciaException;
 import engenharia.cine.festa.jdbc.ConexaoUtil;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -252,14 +254,15 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
             if (!rg.isEmpty()) {
                 st.setString(++cont, rg);
             }
-
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                cdto = new ClienteDTO();
-                cdto.setCodigo(rs.getInt("codigo"));
-                cdto.setCpf(rs.getString("cpf"));
-                cdto.setRg(rs.getString("rg"));
-                cdto.setNome(rs.getString("nome"));
+            if (!cpf.equals("   .   .   -  ") || !rg.isEmpty()) {
+                ResultSet rs = st.executeQuery();
+                if (rs.next()) {
+                    cdto = new ClienteDTO();
+                    cdto.setCodigo(rs.getInt("codigo"));
+                    cdto.setCpf(rs.getString("cpf"));
+                    cdto.setRg(rs.getString("rg"));
+                    cdto.setNome(rs.getString("nome"));
+                }
             }
             connection.close();
         } catch (Exception e) {
@@ -267,6 +270,27 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
             throw new PersistenciaException(e.getMessage());
         }
         return cdto;
+    }
+
+    public void vincularComanda(String sComanda, String sCodigo) throws PersistenciaException {
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sSQL = "CALL PRC_VINCULAR_COMANDA(?, ?, ?)";
+            CallableStatement statement = connection.prepareCall(sSQL);
+            statement.setInt(1, Integer.parseInt(sComanda));
+            statement.setInt(2, Integer.parseInt(sCodigo));
+            statement.registerOutParameter(3, Types.INTEGER);
+            statement.execute();
+
+            Integer param = statement.getInt(3);
+            if (param == 1) throw new PersistenciaException("Comanda já está em uso!");
+            if (param == 2) throw new PersistenciaException("Comanda inválida!");
+            if (param == 3) throw new PersistenciaException("Falha ao buscar festa!");
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenciaException(e.getMessage());
+        }
     }
 
 }

@@ -1,10 +1,11 @@
 package engenharia.cine.festa.gui;
 
 import engenharia.cine.festa.bo.ClienteBO;
-import engenharia.cine.festa.bo.VincularComandaClienteBO;
+import engenharia.cine.festa.bo.VincularClienteComandaBO;
 import engenharia.cine.festa.dto.ClienteDTO;
 import engenharia.cine.festa.util.MensagensUtil;
 import engenharia.cine.festa.util.Utilidades;
+import java.awt.Component;
 import javax.swing.ImageIcon;
 
 /**
@@ -33,6 +34,8 @@ public class VincularClienteComanda extends javax.swing.JFrame {
         txtNome = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtComanda = new engenharia.cine.festa.util.JtextFieldSomenteNumeros();
+        jLabel5 = new javax.swing.JLabel();
+        txtCodigo = new engenharia.cine.festa.util.JtextFieldSomenteNumeros(9);
         pnlBotoes = new javax.swing.JPanel();
         btnLimparCampos = new javax.swing.JButton();
         btnCadastrarCliente = new javax.swing.JButton();
@@ -67,6 +70,10 @@ public class VincularClienteComanda extends javax.swing.JFrame {
 
         jLabel4.setText("Comanda:");
 
+        jLabel5.setText("Codigo:");
+
+        txtCodigo.setEnabled(false);
+
         javax.swing.GroupLayout pnlComandaLayout = new javax.swing.GroupLayout(pnlComanda);
         pnlComanda.setLayout(pnlComandaLayout);
         pnlComandaLayout.setHorizontalGroup(
@@ -75,24 +82,31 @@ public class VincularClienteComanda extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlComandaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlComandaLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlComandaLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNome))
-                    .addGroup(pnlComandaLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlComandaLayout.createSequentialGroup()
+                        .addGroup(pnlComandaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(pnlComandaLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlComandaLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNome)))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(pnlComandaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(pnlComandaLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCodigo)))))
                 .addContainerGap())
         );
         pnlComandaLayout.setVerticalGroup(
@@ -107,7 +121,9 @@ public class VincularClienteComanda extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlComandaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlComandaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -132,6 +148,11 @@ public class VincularClienteComanda extends javax.swing.JFrame {
         });
 
         btnVincular.setText("Vincular");
+        btnVincular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVincularActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlBotoesLayout = new javax.swing.GroupLayout(pnlBotoes);
         pnlBotoes.setLayout(pnlBotoesLayout);
@@ -198,7 +219,13 @@ public class VincularClienteComanda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
-
+        txtComanda.setText("");
+        txtCpf.setText("");
+        txtNome.setText("");
+        txtRg.setText("");
+        txtCodigo.setText("");
+        Utilidades.desabilitaComponentes(new Component[]{btnVincular});
+        txtCpf.grabFocus();
     }//GEN-LAST:event_btnLimparCamposActionPerformed
 
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
@@ -210,7 +237,7 @@ public class VincularClienteComanda extends javax.swing.JFrame {
         String sCpf = txtCpf.getText();
         String sRg = txtRg.getText();
 
-        VincularComandaClienteBO vincularComandaClienteBO = new VincularComandaClienteBO();
+        VincularClienteComandaBO vincularComandaClienteBO = new VincularClienteComandaBO();
         ClienteDTO clienteDTO = null;
         try {
             if (vincularComandaClienteBO.validaRg(sRg) || vincularComandaClienteBO.validaCpf(sCpf)) {
@@ -222,13 +249,34 @@ public class VincularClienteComanda extends javax.swing.JFrame {
                 txtCpf.setText(clienteDTO.getCpf());
                 txtRg.setText(clienteDTO.getRg());
                 txtNome.setText(clienteDTO.getNome());
+                txtCodigo.setText(String.valueOf(clienteDTO.getCodigo()));
                 txtComanda.grabFocus();
+                Utilidades.habilitaComponentes(new Component[]{btnVincular});
             }
         } catch (Exception e) {
             e.printStackTrace();
             MensagensUtil.addMsg(null, e.getMessage());
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnVincularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVincularActionPerformed
+        String sCpf = txtCpf.getText();
+        String sRg = txtRg.getText();
+        String sNome = txtNome.getText();
+        String sComanda = txtComanda.getText();
+        String sCodigo = txtCodigo.getText();
+
+        VincularClienteComandaBO vccbo = new VincularClienteComandaBO();
+        try {
+            vccbo.validaComanda(sComanda);
+            vccbo.vincularComanda(sComanda, sCodigo);
+            MensagensUtil.addMsg(null, "Concluído!!!");
+            btnLimparCamposActionPerformed(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            MensagensUtil.addMsg(null, e.getMessage());
+        }
+    }//GEN-LAST:event_btnVincularActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -247,9 +295,11 @@ public class VincularClienteComanda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel pnlBotoes;
     private javax.swing.JPanel pnlComanda;
     private javax.swing.JPanel pnlTudo;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtComanda;
     private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JTextField txtNome;
@@ -260,5 +310,6 @@ public class VincularClienteComanda extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Utilidades.AlteraIconeFrame(this,
                 new ImageIcon(this.getClass().getResource("/Imagens/icone64x64.png")));
+        btnLimparCamposActionPerformed(null);
     }
 }

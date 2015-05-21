@@ -146,7 +146,7 @@ public class FestaDAO implements GenericoDAO<FestaDTO> {
             PreparedStatement statement = connection.prepareCall(sSQL);
             int cont = 0;
             if (!sDtEvento.equals("  /  /    ")) {
-                statement.setDate(++cont, (Date) Utilidades.dateFormat.parse(sDtEvento));
+                statement.setDate(++cont, new Date(Utilidades.dateFormat.parse(sDtEvento).getTime()));
             }
             if (!sAtracao.isEmpty()) {
                 statement.setString(++cont, "%" + sAtracao + "%");
