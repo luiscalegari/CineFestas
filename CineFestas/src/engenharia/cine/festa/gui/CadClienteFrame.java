@@ -740,10 +740,8 @@ public class CadClienteFrame extends javax.swing.JFrame {
                             txtDtNascimento.setText(dateFormat.format(clienteDTO.getDtNascimento()));
                             txtNome.setText(clienteDTO.getNome());
                             txtNumero.setText(!clienteDTO.getEndereco().isEmpty() ? clienteDTO.getEndereco().split(",")[1] : "");
-//                            txtNumero.setText(clienteDTO.getEndereco().split(",")[1].isEmpty() ? clienteDTO.getEndereco().split(",")[1] : "");
                             txtRg.setText(clienteDTO.getRg());
                             txtRua.setText(!clienteDTO.getEndereco().isEmpty() ? clienteDTO.getEndereco().split(",")[0] : "");
-//                            txtRua.setText(clienteDTO.getEndereco().split(",")[0].isEmpty() ? clienteDTO.getEndereco().split(",")[0] : "");
                             txtTelefone.setText(clienteDTO.getTelefone());
                             rbMasculino.setSelected(clienteDTO.getSexo() == 'M');
                             Utilidades.desabilitaComponentes(new Component[]{btnAdicionar});

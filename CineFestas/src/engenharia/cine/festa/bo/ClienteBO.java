@@ -140,7 +140,8 @@ public class ClienteBO {
             ClienteDAO clienteDAO = new ClienteDAO();
             clienteDTO = clienteDAO.buscarPorCodigo(codigo);
         } catch (Exception e) {
-            throw new NegocioException(e.getMessage());
+            e.printStackTrace();
+            throw new NegocioException(e.getLocalizedMessage());
         }
         return clienteDTO;
     }

@@ -1,6 +1,7 @@
 
 import engenharia.cine.festa.gui.CadClienteFrame;
 import engenharia.cine.festa.gui.CadFestaFrame;
+import engenharia.cine.festa.gui.RealizarVendaFrame;
 import engenharia.cine.festa.gui.VincularClienteComanda;
 import engenharia.cine.festa.util.MensagensUtil;
 import engenharia.cine.festa.util.Utilidades;
@@ -25,6 +26,7 @@ public class Main {
 
 //        new CadClienteFrame().setVisible(true);
 //        new CadFestaFrame().setVisible(true);
-        new VincularClienteComanda().setVisible(true);
+//        new VincularClienteComanda().setVisible(true);
+        new RealizarVendaFrame().setVisible(true);
     }
 }
