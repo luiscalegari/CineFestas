@@ -1,8 +1,13 @@
 package engenharia.cine.festa.bo;
 
+import engenharia.cine.festa.dao.ItensVendaDAO;
 import engenharia.cine.festa.dao.ProdutoDAO;
+import engenharia.cine.festa.dao.VendaDAO;
+import engenharia.cine.festa.dto.ItensVendaDTO;
 import engenharia.cine.festa.dto.ProdutoDTO;
+import engenharia.cine.festa.dto.VendaDTO;
 import engenharia.cine.festa.exception.NegocioException;
+import engenharia.cine.festa.exception.ValidacaoException;
 import java.util.List;
 
 /**
@@ -34,7 +39,7 @@ public class RealizarVendaBO {
      * @throws NegocioException
      */
     public String[][] listaPesquisa(String sCodigo, String sDescricao, List<Integer> listaCodigo) throws NegocioException {
-        int numCols = 3;
+        int numCols = 4;
         String[][] listaRetorno = null;
         try {
             ProdutoDAO produtoDAO = new ProdutoDAO();
@@ -45,7 +50,8 @@ public class RealizarVendaBO {
                 listaCodigo.add(pdto.getCodigo());
                 listaRetorno[i][0] = String.valueOf(pdto.getCodigo());
                 listaRetorno[i][1] = pdto.getDescricao();
-                listaRetorno[i][2] = "Selecionar";
+                listaRetorno[i][2] = String.valueOf(pdto.getPrecoVenda());
+                listaRetorno[i][3] = "Selecionar";
             }
             return listaRetorno;
         } catch (Exception e) {
@@ -54,4 +60,80 @@ public class RealizarVendaBO {
         }
     }
 
+    public boolean validarComanda(String comanda) throws ValidacaoException {
+        boolean ehValido = true;
+        if (comanda.isEmpty()) {
+            ehValido = false;
+            throw new ValidacaoException("Campo comanda deve ser preenchido!");
+        } 
+        return ehValido;
+    }
+
+    public boolean validarTotal(String total) throws ValidacaoException {
+        boolean ehValido = true;
+        if (total.isEmpty()) {
+            ehValido = false;
+            throw new ValidacaoException("Impossível calcular total da venda!");
+        }
+        return ehValido;
+    }
+
+    public boolean validarProduto(String produto) throws ValidacaoException {
+        boolean ehValido = true;
+        if (produto.isEmpty()) {
+            ehValido = false;
+            throw new ValidacaoException("Produto não encontrado!");
+        }
+        return ehValido;
+    }
+
+    public boolean validarQtde(String qtde) throws ValidacaoException {
+        boolean ehValido = true;
+        if (qtde.isEmpty()) {
+            ehValido = false;
+            throw new ValidacaoException("Qtde inválida!");
+        } else {
+            int iQtde = Integer.valueOf(qtde);
+            if (iQtde <= 0) {
+                ehValido = false;
+                throw new ValidacaoException("Qtde deve ser maior do que 0!");
+            }
+        }
+        return ehValido;
+    }
+
+    public boolean validarValor(String valor) throws ValidacaoException {
+        boolean ehValido = true;
+        if (valor.isEmpty()) {
+            ehValido = false;
+            throw new ValidacaoException("Preço inválido!");
+        } else {
+            float fValor = Float.valueOf(valor);
+            if (fValor <= 0) {
+                ehValido = false;
+                throw new ValidacaoException("Preço informado deve ser maior do que 0!");
+            }
+        }
+        return ehValido;
+    }
+
+    public int cadastrarVenda(VendaDTO vdto) throws NegocioException {
+        try {
+            VendaDAO vdao = new VendaDAO();
+            return vdao.inserirEPegaCodigo(vdto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new NegocioException(e.getLocalizedMessage());
+        }
+    }
+
+    public void cadastrarItenVenda(ItensVendaDTO intemVenda) throws NegocioException {
+        try {
+            ItensVendaDAO ivdao = new ItensVendaDAO();
+            ivdao.inserir(intemVenda);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new NegocioException(e.getLocalizedMessage());
+        }
+    }
 }
