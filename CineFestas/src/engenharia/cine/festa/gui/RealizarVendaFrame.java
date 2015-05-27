@@ -30,7 +30,7 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
     private List<Integer> listaCodigo;
     private int linha;
     private final String[][] matModel = new String[][]{};
-    private final String[] vetModelProdutos = new String[]{"Código", "Descrição","Preço" ,""};
+    private final String[] vetModelProdutos = new String[]{"Código", "Descrição", "Preço", ""};
     private final String[] vetModelItensVenda = new String[]{"Código", "Descrição", "Preço", "Quantidade"};
     private static final DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
@@ -203,6 +203,7 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.setCursor(WAIT_CURSOR);
         this.modelProduto = new DefaultTableModel(
                 new String[][]{}, vetModelProdutos);
         this.modelItensVenda = new DefaultTableModel(
@@ -214,9 +215,11 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
         tabItensVenda.setModel(modelItensVenda);
         lblTotal.setText("0.00");
         Utilidades.desabilitaComponentes(new Component[]{btnOk});
+        this.setCursor(DEFAULT_CURSOR);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        this.setCursor(WAIT_CURSOR);
         String sCodigo = txtCodigo.getText();
         String sDescricao = txtDecricao.getText();
 
@@ -267,9 +270,11 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
             e.printStackTrace();
             MensagensUtil.addMsg(null, e.getMessage());
         }
+        this.setCursor(DEFAULT_CURSOR);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        this.setCursor(WAIT_CURSOR);
         List<ItensVendaDTO> listaItensVenda = new ArrayList<ItensVendaDTO>();
         VendaDTO vdto = new VendaDTO();
         RealizarVendaBO rvbo = new RealizarVendaBO();
@@ -319,6 +324,7 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
             e.printStackTrace();
             MensagensUtil.addMsg(null, e.getLocalizedMessage());
         }
+        this.setCursor(DEFAULT_CURSOR);
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void txtComandaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtComandaKeyPressed

@@ -83,9 +83,9 @@ public class ClienteDAO implements GenericoDAO<ClienteDTO> {
             statement.setString(8, obj.getSexo().toString());
             statement.setDate(9, new Date(obj.getDtNascimento().getTime()));
             statement.setBoolean(10, false);
-            statement.setString(12, obj.getTelefone());
-            statement.setString(13, obj.getCelular());
-            statement.setString(11, obj.getEstado());
+            statement.setString(11, obj.getTelefone());
+            statement.setString(12, obj.getCelular());
+            statement.setString(13, obj.getEstado());
             statement.setInt(14, obj.getCodigo());
 
             statement.execute();

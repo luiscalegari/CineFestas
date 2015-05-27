@@ -1,6 +1,5 @@
 package engenharia.cine.festa.gui;
 
-import engenharia.cine.festa.bo.ClienteBO;
 import engenharia.cine.festa.bo.VincularClienteComandaBO;
 import engenharia.cine.festa.dto.ClienteDTO;
 import engenharia.cine.festa.util.MensagensUtil;
@@ -219,6 +218,7 @@ public class VincularClienteComanda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
+        this.setCursor(WAIT_CURSOR);
         txtComanda.setText("");
         txtCpf.setText("");
         txtNome.setText("");
@@ -226,14 +226,18 @@ public class VincularClienteComanda extends javax.swing.JFrame {
         txtCodigo.setText("");
         Utilidades.desabilitaComponentes(new Component[]{btnVincular});
         txtCpf.grabFocus();
+        this.setCursor(DEFAULT_CURSOR);
     }//GEN-LAST:event_btnLimparCamposActionPerformed
 
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
+        this.setCursor(WAIT_CURSOR);
         this.dispose();
         new CadClienteFrame().setVisible(true);
+        this.setCursor(DEFAULT_CURSOR);
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        this.setCursor(WAIT_CURSOR);
         String sCpf = txtCpf.getText();
         String sRg = txtRg.getText();
 
@@ -257,9 +261,11 @@ public class VincularClienteComanda extends javax.swing.JFrame {
             e.printStackTrace();
             MensagensUtil.addMsg(null, e.getMessage());
         }
+        this.setCursor(DEFAULT_CURSOR);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnVincularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVincularActionPerformed
+        this.setCursor(WAIT_CURSOR);
         String sCpf = txtCpf.getText();
         String sRg = txtRg.getText();
         String sNome = txtNome.getText();
@@ -276,6 +282,7 @@ public class VincularClienteComanda extends javax.swing.JFrame {
             e.printStackTrace();
             MensagensUtil.addMsg(null, e.getMessage());
         }
+        this.setCursor(DEFAULT_CURSOR);
     }//GEN-LAST:event_btnVincularActionPerformed
 
     public static void main(String args[]) {
