@@ -1,8 +1,13 @@
 package engenharia.cine.festa.gui;
 
 import engenharia.cine.festa.bo.FecharContaBO;
+import engenharia.cine.festa.dto.ComandaClienteDTO;
+import engenharia.cine.festa.util.MensagensUtil;
 import engenharia.cine.festa.util.Utilidades;
+import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -11,6 +16,7 @@ import javax.swing.ImageIcon;
 public class FecharContaFrame extends javax.swing.JFrame {
 
     private final String[] vetModelItensVenda = new String[]{"Código", "Descrição", "Preço", "Quantidade"};
+    private static final DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
     public FecharContaFrame() {
         initComponents();
@@ -173,6 +179,20 @@ public class FecharContaFrame extends javax.swing.JFrame {
 
     private void btnIrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrActionPerformed
         FecharContaBO fcbo = new FecharContaBO();
+        try {
+            String sComanda = txtComanda.getText();
+            fcbo.validarComanda(sComanda);
+            
+            String[][] lista = fcbo.listaPesquisa(sComanda);
+            TableModel model = new DefaultTableModel(lista, vetModelItensVenda);
+            tabListagem.setModel(model);
+            
+            ComandaClienteDTO ccdto = fcbo.buscaPorComanda(sComanda);
+            lblTotal.setText(decimalFormat.format(ccdto.getTotal()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            MensagensUtil.addMsg(this, e.getLocalizedMessage());
+        }
     }//GEN-LAST:event_btnIrActionPerformed
 
     public static void main(String args[]) {

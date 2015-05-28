@@ -2,13 +2,17 @@ package engenharia.cine.festa.dao;
 
 import engenharia.cine.festa.dto.ComandaClienteDTO;
 import engenharia.cine.festa.exception.PersistenciaException;
+import engenharia.cine.festa.jdbc.ConexaoUtil;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 /**
  *
  * @author Luis Calegari
  */
-public class ComandaClienteDAO implements GenericoDAO<ComandaClienteDTO>{
+public class ComandaClienteDAO implements GenericoDAO<ComandaClienteDTO> {
 
     @Override
     public void inserir(ComandaClienteDTO obj) throws PersistenciaException {
@@ -34,5 +38,33 @@ public class ComandaClienteDAO implements GenericoDAO<ComandaClienteDTO>{
     public ComandaClienteDTO buscarPorCodigo(Integer codigo) throws PersistenciaException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    public ComandaClienteDTO buscaPorComanda(Integer comanda) throws PersistenciaException {
+        try {
+            ComandaClienteDTO ccdto = new ComandaClienteDTO();
+            Connection c = ConexaoUtil.getInstance().getConnection();
+            String sSQL = "";
+            sSQL = "select com.numero, cc.cliente, cc.festa, f.codigo, cc.total, cc.valorPago from comandacliente cc";
+            sSQL += " inner join festa f on f.codigo = cc.festa";
+            sSQL += " inner join comanda com on com.numero = cc.comanda";
+            sSQL += " where curdate() in (f.dtEvento) and com.numero = ?";
+
+            PreparedStatement st = c.prepareStatement(sSQL);
+            st.setInt(1, comanda);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                ccdto.setComanda(rs.getInt("numero"));
+                ccdto.setCliente(rs.getInt("cliente"));
+                ccdto.setFesta(rs.getInt("festa"));
+                ccdto.setTotal(rs.getFloat("total"));
+                ccdto.setValorPago(rs.getFloat("valorPago"));
+            }
+            c.close();
+            return ccdto;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenciaException(e.getLocalizedMessage());
+        }
+    }
+
 }
