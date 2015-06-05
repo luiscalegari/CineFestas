@@ -10,12 +10,12 @@ import java.util.List;
 public interface GenericoDAO<T> {
 
     public void inserir(T obj) throws PersistenciaException;
-    
+
     public void atualizar(T obj) throws PersistenciaException;
-    
-    public void excluir (Integer codigo) throws PersistenciaException;
-    
+
+    public void excluir(Integer codigo) throws PersistenciaException;
+
     List<T> listarTodos() throws PersistenciaException;
-    
+
     T buscarPorCodigo(Integer codigo) throws PersistenciaException;
 }
