@@ -2,6 +2,8 @@ package engenharia.cine.festa.gui;
 
 import engenharia.cine.festa.bo.ClienteBO;
 import engenharia.cine.festa.dto.ClienteDTO;
+import engenharia.cine.festa.dto.FestaDTO;
+import engenharia.cine.festa.exception.NegocioException;
 import engenharia.cine.festa.util.MensagensUtil;
 import engenharia.cine.festa.util.Utilidades;
 import java.awt.Component;
@@ -17,6 +19,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import static engenharia.cine.festa.util.Utilidades.dateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -122,12 +126,22 @@ public class CadClienteFrame extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCpf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCpfFocusGained(evt);
+            }
+        });
 
         try {
             txtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCep.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCepFocusGained(evt);
+            }
+        });
 
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins" }));
         cmbEstado.setSelectedIndex(22);
@@ -168,6 +182,11 @@ public class CadClienteFrame extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtDtNascimento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDtNascimentoFocusGained(evt);
+            }
+        });
 
         btnAdicionar.setText("Adicionar");
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -190,6 +209,11 @@ public class CadClienteFrame extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtTelefone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTelefoneFocusGained(evt);
+            }
+        });
 
         jLabel16.setText("* Celular:");
 
@@ -198,6 +222,11 @@ public class CadClienteFrame extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCelular.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCelularFocusGained(evt);
+            }
+        });
 
         btnLimparCadastro.setText("Limpar");
         btnLimparCadastro.addActionListener(new java.awt.event.ActionListener() {
@@ -386,6 +415,11 @@ public class CadClienteFrame extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCpfConsulta.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCpfConsultaFocusGained(evt);
+            }
+        });
 
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -640,6 +674,36 @@ public class CadClienteFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    private void txtCpfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfFocusGained
+        txtCpf.setValue("");
+        txtCpf.setText("");
+    }//GEN-LAST:event_txtCpfFocusGained
+
+    private void txtCepFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCepFocusGained
+        txtCep.setValue("");
+        txtCep.setText("");
+    }//GEN-LAST:event_txtCepFocusGained
+
+    private void txtDtNascimentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDtNascimentoFocusGained
+        txtDtNascimento.setValue("");
+        txtDtNascimento.setText("");
+    }//GEN-LAST:event_txtDtNascimentoFocusGained
+
+    private void txtTelefoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefoneFocusGained
+        txtTelefone.setValue("");
+        txtTelefone.setText("");
+    }//GEN-LAST:event_txtTelefoneFocusGained
+
+    private void txtCelularFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelularFocusGained
+        txtCelular.setValue("");
+        txtCelular.setText("");
+    }//GEN-LAST:event_txtCelularFocusGained
+
+    private void txtCpfConsultaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfConsultaFocusGained
+        txtCpfConsulta.setValue("");
+        txtCpfConsulta.setText("");
+    }//GEN-LAST:event_txtCpfConsultaFocusGained
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -705,6 +769,13 @@ public class CadClienteFrame extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Utilidades.AlteraIconeFrame(this,
                 new ImageIcon(this.getClass().getResource("/Imagens/icone64x64.png")));
+        try {
+            ClienteBO cbo = new ClienteBO();
+            FestaDTO festa = cbo.buscarFesta();
+            this.setTitle(this.getTitle() + " - " + festa.getAtracao());
+        } catch (Exception e) {
+            MensagensUtil.addMsg(null, e.getLocalizedMessage());
+        }
         listaCodigo = new ArrayList<>();
         linha = 0;
         Utilidades.desabilitaComponentes(new Component[]{btnSalvar, btnExcluir});

@@ -1,7 +1,9 @@
 package engenharia.cine.festa.gui;
 
+import engenharia.cine.festa.bo.ClienteBO;
 import engenharia.cine.festa.bo.FecharContaBO;
 import engenharia.cine.festa.dto.ComandaClienteDTO;
+import engenharia.cine.festa.dto.FestaDTO;
 import engenharia.cine.festa.util.MensagensUtil;
 import engenharia.cine.festa.util.Utilidades;
 import java.text.DecimalFormat;
@@ -182,11 +184,11 @@ public class FecharContaFrame extends javax.swing.JFrame {
         try {
             String sComanda = txtComanda.getText();
             fcbo.validarComanda(sComanda);
-            
+
             String[][] lista = fcbo.listaPesquisa(sComanda);
             TableModel model = new DefaultTableModel(lista, vetModelItensVenda);
             tabListagem.setModel(model);
-            
+
             ComandaClienteDTO ccdto = fcbo.buscaPorComanda(sComanda);
             lblTotal.setText(decimalFormat.format(ccdto.getTotal()));
         } catch (Exception e) {
@@ -224,6 +226,13 @@ public class FecharContaFrame extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Utilidades.AlteraIconeFrame(this,
                 new ImageIcon(this.getClass().getResource("/Imagens/icone64x64.png")));
+        try {
+            ClienteBO cbo = new ClienteBO();
+            FestaDTO festa = cbo.buscarFesta();
+            this.setTitle(this.getTitle() + " - " + festa.getAtracao());
+        } catch (Exception e) {
+            MensagensUtil.addMsg(null, e.getLocalizedMessage());
+        }
 
     }
 }

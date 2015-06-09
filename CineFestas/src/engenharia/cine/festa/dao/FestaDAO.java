@@ -175,4 +175,30 @@ public class FestaDAO implements GenericoDAO<FestaDTO> {
         return listaFesta;
     }
 
+    public FestaDTO buscarFestaDaNoite() throws PersistenciaException {
+        FestaDTO festaDTO = new FestaDTO();
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sSQL = "select * from festa where curdate() in (dtEvento);";
+            PreparedStatement statement = connection.prepareStatement(sSQL);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                festaDTO.setCodigo(rs.getInt("codigo"));
+                festaDTO.setDtevento(rs.getDate("dtEvento"));
+                festaDTO.setDtconcepcao(rs.getDate("dtConcepcao"));
+                festaDTO.setDtcadastro(rs.getDate("dtCadastro"));
+                festaDTO.setDescricao(rs.getString("descricao"));
+                festaDTO.setAtracao(rs.getString("atracao"));
+                festaDTO.setPublicoEsperado(rs.getInt("publicoEsperado"));
+                festaDTO.setResponsaveisEvento(rs.getString("responsaveisEvento"));
+                festaDTO.setInvestimentoInicial(rs.getFloat("investimentoInicial"));
+            }
+            connection.close();
+            return festaDTO;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenciaException(e.getMessage());
+        }
+    }
+
 }

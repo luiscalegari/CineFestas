@@ -1,7 +1,9 @@
 package engenharia.cine.festa.gui;
 
+import engenharia.cine.festa.bo.ClienteBO;
 import engenharia.cine.festa.bo.VincularClienteComandaBO;
 import engenharia.cine.festa.dto.ClienteDTO;
+import engenharia.cine.festa.dto.FestaDTO;
 import engenharia.cine.festa.util.MensagensUtil;
 import engenharia.cine.festa.util.Utilidades;
 import java.awt.Component;
@@ -53,6 +55,11 @@ public class VincularClienteComanda extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCpf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCpfFocusGained(evt);
+            }
+        });
 
         jLabel2.setText("RG:");
 
@@ -285,6 +292,11 @@ public class VincularClienteComanda extends javax.swing.JFrame {
         this.setCursor(DEFAULT_CURSOR);
     }//GEN-LAST:event_btnVincularActionPerformed
 
+    private void txtCpfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfFocusGained
+        txtCpf.setValue("");
+        txtCpf.setText("");
+    }//GEN-LAST:event_txtCpfFocusGained
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -317,6 +329,13 @@ public class VincularClienteComanda extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Utilidades.AlteraIconeFrame(this,
                 new ImageIcon(this.getClass().getResource("/Imagens/icone64x64.png")));
+        try {
+            ClienteBO cbo = new ClienteBO();
+            FestaDTO festa = cbo.buscarFesta();
+            this.setTitle(this.getTitle() + " - " + festa.getAtracao());
+        } catch (Exception e) {
+            MensagensUtil.addMsg(null, e.getLocalizedMessage());
+        }
         btnLimparCamposActionPerformed(null);
     }
 }

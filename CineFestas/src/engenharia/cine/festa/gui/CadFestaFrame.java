@@ -106,12 +106,22 @@ public class CadFestaFrame extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtDtEvento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDtEventoFocusGained(evt);
+            }
+        });
 
         try {
             txtDtConcepcao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtDtConcepcao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDtConcepcaoFocusGained(evt);
+            }
+        });
 
         jScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -263,6 +273,11 @@ public class CadFestaFrame extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtDtEventoConsulta.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDtEventoConsultaFocusGained(evt);
+            }
+        });
 
         jLabel9.setText("Atração:");
 
@@ -495,6 +510,21 @@ public class CadFestaFrame extends javax.swing.JFrame {
         }
         this.setCursor(DEFAULT_CURSOR);
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void txtDtEventoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDtEventoFocusGained
+        txtDtEvento.setValue("");
+        txtDtEvento.setText("");
+    }//GEN-LAST:event_txtDtEventoFocusGained
+
+    private void txtDtConcepcaoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDtConcepcaoFocusGained
+        txtDtConcepcao.setValue("");
+        txtDtConcepcao.setText("");
+    }//GEN-LAST:event_txtDtConcepcaoFocusGained
+
+    private void txtDtEventoConsultaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDtEventoConsultaFocusGained
+        txtDtEventoConsulta.setValue("");
+        txtDtEventoConsulta.setText("");
+    }//GEN-LAST:event_txtDtEventoConsultaFocusGained
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

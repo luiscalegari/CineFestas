@@ -239,6 +239,9 @@
                       <Format format="##/##/####" subtype="-1" type="5"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtDtEventoFocusGained"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="txtDtConcepcao">
                   <Properties>
@@ -246,6 +249,9 @@
                       <Format format="##/##/####" subtype="-1" type="5"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtDtConcepcaoFocusGained"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtAtracao">
                   <AuxValues>
@@ -412,6 +418,9 @@
                       <Format format="##/##/####" subtype="-1" type="5"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtDtEventoConsultaFocusGained"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel9">
                   <Properties>

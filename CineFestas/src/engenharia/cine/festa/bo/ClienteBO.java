@@ -1,10 +1,15 @@
 package engenharia.cine.festa.bo;
 
 import engenharia.cine.festa.dao.ClienteDAO;
+import engenharia.cine.festa.dao.FestaDAO;
 import engenharia.cine.festa.dto.ClienteDTO;
+import engenharia.cine.festa.dto.FestaDTO;
 import engenharia.cine.festa.exception.NegocioException;
 import engenharia.cine.festa.exception.ValidacaoException;
 import engenharia.cine.festa.util.Utilidades;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -72,11 +77,19 @@ public class ClienteBO {
 
     public boolean validaDtNasc(String dtNasc) throws ValidacaoException {
         boolean ehValido = true;
-        if (dtNasc.equals("  /  /    ")) {
+        if (dtNasc != null && !dtNasc.equals("  /  /    ")) {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            dateFormat.setLenient(false);
+            try {
+                Date d = dateFormat.parse(dtNasc);
+            } catch (Exception e) {
+                throw new ValidacaoException("Campo Dt. Nascimento deve conter uma data válida!");
+            }
+            return ehValido;
+        } else {
             ehValido = false;
             throw new ValidacaoException("Campo Dt. Nasc. é obrigatório !!!");
         }
-        return ehValido;
     }
 
     public boolean validaFone(String fone) throws ValidacaoException {
@@ -162,6 +175,19 @@ public class ClienteBO {
             clienteDAO.excluir(codigo);
         } catch (Exception e) {
             e.printStackTrace();
+            throw new NegocioException(e.getMessage());
+        }
+    }
+
+    public FestaDTO buscarFesta() throws NegocioException {
+        try {
+            FestaDAO fdao = new FestaDAO();
+            FestaDTO fdto = fdao.buscarFestaDaNoite();
+            if (fdto == null || fdto.isFestaVazia()) {
+                throw new NegocioException("Nenhuma festa para do dia de hoje foi encontrada!!!");
+            }
+            return fdto;
+        } catch (Exception e) {
             throw new NegocioException(e.getMessage());
         }
     }

@@ -312,6 +312,9 @@
                       <Format format="###.###.###-##" subtype="-1" type="5"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCpfFocusGained"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtRua">
                   <AuxValues>
@@ -339,6 +342,9 @@
                       <Format format="#####-###" subtype="-1" type="5"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCepFocusGained"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cmbEstado">
                   <Properties>
@@ -435,6 +441,9 @@
                       <Format format="##/##/####" subtype="-1" type="5"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtDtNascimentoFocusGained"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnAdicionar">
                   <Properties>
@@ -463,6 +472,9 @@
                       <Format format="(##) - ########" subtype="-1" type="5"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtTelefoneFocusGained"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel16">
                   <Properties>
@@ -475,6 +487,9 @@
                       <Format format="(##) - #########" subtype="-1" type="5"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCelularFocusGained"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnLimparCadastro">
                   <Properties>
@@ -653,6 +668,9 @@
                       <Format format="###.###.###-##" subtype="-1" type="5"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCpfConsultaFocusGained"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnPesquisar">
                   <Properties>

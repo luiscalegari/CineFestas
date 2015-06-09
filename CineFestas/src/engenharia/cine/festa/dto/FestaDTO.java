@@ -92,4 +92,8 @@ public class FestaDTO {
     public void setInvestimentoInicial(Float _investimentoInicial) {
         this._investimentoInicial = _investimentoInicial;
     }
+
+    public boolean isFestaVazia() {
+        return getCodigo() <= 0;
+    }
 }

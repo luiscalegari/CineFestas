@@ -5,7 +5,9 @@ import engenharia.cine.festa.dto.FestaDTO;
 import engenharia.cine.festa.exception.NegocioException;
 import engenharia.cine.festa.exception.ValidacaoException;
 import engenharia.cine.festa.util.Utilidades;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +22,14 @@ public class FestaBO {
         if (dtEvento.equals("  /  /    ")) {
             ehValido = false;
             throw new ValidacaoException("Campo Data do Evento deve ser preenchido !!!");
+        } else {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            dateFormat.setLenient(false);
+            try {
+                Date d = dateFormat.parse(dtEvento);
+            } catch (Exception e) {
+                throw new ValidacaoException("Campo Data do Evento deve conter uma data válida !!!");
+            }
         }
         return ehValido;
     }
@@ -38,8 +48,15 @@ public class FestaBO {
             ehValido = false;
             throw new ValidacaoException("Dt. Concepção deve ser anterior a Dt. Evento");
         } else {
-            Date concepcao = Utilidades.dateFormat.parse(dtConcepcao);
-            Date atual = Utilidades.dateFormat.parse(Utilidades.dateFormat.format(new Date()));
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            dateFormat.setLenient(false);
+            Date concepcao = null;
+            try {
+                concepcao = dateFormat.parse(dtConcepcao);
+            } catch (Exception e) {
+                throw new ValidacaoException("Dt. Concepção não deve conter uma data válida.");
+            }
+            Date atual = dateFormat.parse(dateFormat.format(new Date()));
             if (concepcao.compareTo(atual) > 0) {
                 ehValido = false;
                 throw new ValidacaoException("Dt. Concepção não deve ser igual ou anterior a data atual");
@@ -83,10 +100,10 @@ public class FestaBO {
             throw new NegocioException(e.getMessage());
         }
     }
-    
+
     /**
      * Metodo que cria uma matriz de valores para ser exibida em JTable
-     * 
+     *
      * @param sDtEvento Filtro por data do evento.
      * @param sAtracao Filtro por atração do evento.
      * @param listaCodigo Retorna todos ID´s referente a tabela do banco de
@@ -94,7 +111,7 @@ public class FestaBO {
      */
     public String[][] listaPesquisa(String sDtEvento, String sAtracao, List<Integer> listaCodigo) throws NegocioException {
         int numCols = 4;
-        String [][] listaRetorno = null;
+        String[][] listaRetorno = null;
         try {
             FestaDAO festaDAO = new FestaDAO();
             List<FestaDTO> listaFesta = festaDAO.filtraFesta(sDtEvento, sAtracao);

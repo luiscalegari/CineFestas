@@ -39,7 +39,7 @@ public class RealizarVendaBO {
      * @throws NegocioException
      */
     public String[][] listaPesquisa(String sCodigo, String sDescricao, List<Integer> listaCodigo) throws NegocioException {
-        int numCols = 4;
+        int numCols = 3;
         String[][] listaRetorno = null;
         try {
             ProdutoDAO produtoDAO = new ProdutoDAO();
@@ -51,7 +51,6 @@ public class RealizarVendaBO {
                 listaRetorno[i][0] = String.valueOf(pdto.getCodigo());
                 listaRetorno[i][1] = pdto.getDescricao();
                 listaRetorno[i][2] = String.valueOf(pdto.getPrecoVenda());
-                listaRetorno[i][3] = "Selecionar";
             }
             return listaRetorno;
         } catch (Exception e) {
