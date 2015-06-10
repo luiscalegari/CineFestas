@@ -94,6 +94,6 @@ public class FestaDTO {
     }
 
     public boolean isFestaVazia() {
-        return getCodigo() <= 0;
+        return getCodigo() == null || getCodigo() <= 0;
     }
 }

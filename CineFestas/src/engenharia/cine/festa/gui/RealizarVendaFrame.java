@@ -64,7 +64,7 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
         btnAdicionar = new javax.swing.JButton();
         btnRetirar = new javax.swing.JButton();
         javax.swing.SpinnerNumberModel modelQtde = new javax.swing.SpinnerNumberModel();
-        modelQtde.setMinimum(0);
+        modelQtde.setMinimum(1);
         txtQuantidade = new javax.swing.JSpinner(modelQtde);
         jLabel5 = new javax.swing.JLabel();
 
@@ -252,7 +252,7 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
         txtCodigo.setText("");
         txtDecricao.setText("");
         txtComanda.setText("");
-        txtQuantidade.setValue(0);
+        txtQuantidade.setValue(1);
         tabProdutos.setModel(modelProduto);
         tabItensVenda.setModel(modelItensVenda);
         lblTotal.setText("0.00");
@@ -275,44 +275,6 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
                 }
             };
             tabProdutos.setModel(model);
-//            Action actionSelect = new AbstractAction() {
-//                @Override
-//                public void actionPerformed(ActionEvent actionEvent) {
-//                    ProdutoDTO pdto = new ProdutoDTO();
-//                    try {
-//                        pdto = selecionarProdutoClick(actionEvent);
-//                        String modelLinha[] = new String[]{String.valueOf(pdto.getCodigo()), pdto.getDescricao(), String.valueOf(pdto.getPrecoVenda()), "1"};
-//                        DefaultTableModel defaultTableModel = (DefaultTableModel) tabItensVenda.getModel();
-//                        int i = 0;
-//                        while (i < defaultTableModel.getRowCount() && Integer.parseInt((String) defaultTableModel.getValueAt(i, 0)) != pdto.getCodigo()) {
-//                            i++;
-//                        }
-//                        if (i >= defaultTableModel.getRowCount()) {
-//                            defaultTableModel.addRow(modelLinha);
-//                        } else {
-//                            String sQtde = String.valueOf(defaultTableModel.getValueAt(i, 3));
-//                            int iQtde = 1;
-//                            iQtde += Integer.valueOf(sQtde);
-//                            defaultTableModel.setValueAt(iQtde, i, 3);
-//                        }
-//
-//                        tabItensVenda.setModel(defaultTableModel);
-//                        float tot = 0;
-//                        for (int j = 0; j < defaultTableModel.getRowCount(); j++) {
-//                            String sPreco = String.valueOf(defaultTableModel.getValueAt(j, 2));
-//                            String sQtde = String.valueOf(defaultTableModel.getValueAt(j, 3));
-//                            float preco = Float.parseFloat(sPreco);
-//                            float qtde = Float.parseFloat(sQtde);
-//                            tot += preco * qtde;
-//                        }
-//                        lblTotal.setText(decimalFormat.format(tot));
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                        MensagensUtil.addMsg(null, e.getMessage());
-//                    }
-//                }
-//            };
-//            ButtonColumn buttonColumn = new ButtonColumn(tabProdutos, actionSelect, 3);
         } catch (Exception e) {
             e.printStackTrace();
             MensagensUtil.addMsg(null, e.getMessage());
@@ -394,9 +356,8 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
             String sDescricao = pdto.getDescricao();
             String sPreco = String.valueOf(pdto.getPrecoVenda());
             String sQtde = String.valueOf(txtQuantidade.getValue());
-
             rvbo.validarQtde(sQtde);
-            
+
             String modelLinha[];
             modelLinha = new String[]{sCodigo, sDescricao, sPreco, sQtde};
 
@@ -432,12 +393,10 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
             e.printStackTrace();
             MensagensUtil.addMsg(null, e.getMessage());
         }
-
-
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarActionPerformed
-
+        
     }//GEN-LAST:event_btnRetirarActionPerformed
 
     public static void main(String args[]) {
@@ -481,6 +440,7 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
             FestaDTO festa = cbo.buscarFesta();
             this.setTitle(this.getTitle() + " - " + festa.getAtracao());
         } catch (Exception e) {
+            e.printStackTrace();
             MensagensUtil.addMsg(null, e.getLocalizedMessage());
         }
 
