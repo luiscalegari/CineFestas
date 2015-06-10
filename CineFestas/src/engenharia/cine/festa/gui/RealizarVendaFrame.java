@@ -14,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -250,6 +252,7 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
         txtCodigo.setText("");
         txtDecricao.setText("");
         txtComanda.setText("");
+        txtQuantidade.setValue(0);
         tabProdutos.setModel(modelProduto);
         tabItensVenda.setModel(modelItensVenda);
         lblTotal.setText("0.00");
@@ -380,6 +383,56 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtComandaKeyPressed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        ProdutoDTO pdto = new ProdutoDTO();
+        try {
+            // Buscar Produto Selecionado no JTable tabProdutos
+            RealizarVendaBO rvbo = new RealizarVendaBO();
+            pdto = rvbo.selecionarProdutoPorCodigo(listaCodigo.get(tabProdutos.getSelectedRow()));
+
+            // Prepara dados para inserir na tabela de itens da venda
+            String sCodigo = String.valueOf(pdto.getCodigo());
+            String sDescricao = pdto.getDescricao();
+            String sPreco = String.valueOf(pdto.getPrecoVenda());
+            String sQtde = String.valueOf(txtQuantidade.getValue());
+
+            rvbo.validarQtde(sQtde);
+            
+            String modelLinha[];
+            modelLinha = new String[]{sCodigo, sDescricao, sPreco, sQtde};
+
+            // Verrendo JTable tabItensVenda para verificar se o produto ja foi adicionado anteriormente nesta mesma venda
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tabItensVenda.getModel();
+            int i = 0;
+            while (i < defaultTableModel.getRowCount() && Integer.parseInt((String) defaultTableModel.getValueAt(i, 0)) != pdto.getCodigo()) {
+                i++;
+            }
+            // Se não encontrar o produto apenas adicionar o produto na TableModel
+            if (i >= defaultTableModel.getRowCount()) {
+                defaultTableModel.addRow(modelLinha);
+            } else { // Caso o produto já exista na tabela apenas adicionar a quantidade na coluna de quantidade.
+                String sQtdeExistente = String.valueOf(defaultTableModel.getValueAt(i, 3));
+                int iQtdeExistente = Integer.parseInt(sQtdeExistente);
+                int iQtdeAdicionada = Integer.parseInt(sQtde);
+                int iQtdeTotal = iQtdeExistente + iQtdeAdicionada;
+                defaultTableModel.setValueAt(iQtdeTotal, i, 3);
+            }
+            tabItensVenda.setModel(defaultTableModel);
+
+            // Calcular valor total da Venda
+            float fTot = 0;
+            for (int j = 0; j < defaultTableModel.getRowCount(); j++) {
+                sPreco = String.valueOf(defaultTableModel.getValueAt(j, 2));
+                sQtde = String.valueOf(defaultTableModel.getValueAt(j, 3));
+                float fPreco = Float.parseFloat(sPreco);
+                float fQtde = Float.parseFloat(sQtde);
+                fTot += fPreco * fQtde;
+            }
+            lblTotal.setText(decimalFormat.format(fTot));
+        } catch (Exception e) {
+            e.printStackTrace();
+            MensagensUtil.addMsg(null, e.getMessage());
+        }
+
 
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
@@ -434,20 +487,5 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
         listaCodigo = new ArrayList<Integer>();
         linha = 0;
         btnCancelarActionPerformed(null);
-    }
-
-    public ProdutoDTO selecionarProdutoClick(ActionEvent actionEvent) throws NegocioException {
-        JTable table = (JTable) actionEvent.getSource();
-        linha = Integer.valueOf(actionEvent.getActionCommand());
-
-        RealizarVendaBO rvbo = new RealizarVendaBO();
-        try {
-            ProdutoDTO pdto = RealizarVendaBO.selecionarProdutoPorCodigo(listaCodigo.get(linha));
-            return pdto;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new NegocioException(e.getLocalizedMessage());
-        }
-
     }
 }

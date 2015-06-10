@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class RealizarVendaBO {
 
-    public static ProdutoDTO selecionarProdutoPorCodigo(Integer codigo) throws NegocioException {
+    public ProdutoDTO selecionarProdutoPorCodigo(Integer codigo) throws NegocioException {
         try {
             ProdutoDTO pdto = null;
             ProdutoDAO pdao = new ProdutoDAO();
