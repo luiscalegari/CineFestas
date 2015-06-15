@@ -9,6 +9,7 @@ import engenharia.cine.festa.dto.ComandaDTO;
 import engenharia.cine.festa.dto.ItensVendaDTO;
 import engenharia.cine.festa.dto.ProdutoDTO;
 import engenharia.cine.festa.exception.NegocioException;
+import engenharia.cine.festa.exception.PersistenciaException;
 import engenharia.cine.festa.exception.ValidacaoException;
 import java.text.DecimalFormat;
 import java.util.List;
@@ -21,17 +22,16 @@ public class FecharContaBO {
 
     private static final DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
-    public boolean validarComanda(String comanda) throws ValidacaoException {
+    public boolean validarComanda(String comanda) throws ValidacaoException, PersistenciaException {
         boolean ehValido = true;
         if (comanda.isEmpty()) {
             ehValido = false;
             throw new ValidacaoException("Campo comanda deve ser preenchido!");
         } else {
-            try {
-                long lcomanda = Long.parseLong(comanda);
-            } catch (Exception e) {
-                ehValido = false;
-                throw new ValidacaoException("Campo comanda deve conter somentes números!");
+            ComandaDAO cdao = new ComandaDAO();
+            ComandaDTO cdto = cdao.buscarPorCodigo(Integer.valueOf(comanda));
+            if (!cdto.isStatus()) {
+                throw new ValidacaoException("Comanda fechada!");
             }
         }
         return ehValido;
@@ -60,7 +60,7 @@ public class FecharContaBO {
         }
     }
 
-    public ComandaClienteDTO buscaPorComanda(String comanda) throws NegocioException{
+    public ComandaClienteDTO buscaPorComanda(String comanda) throws NegocioException {
         try {
             ComandaClienteDAO ccdao = new ComandaClienteDAO();
             ComandaClienteDTO ccdto = ccdao.buscaPorComanda(Integer.valueOf(comanda));

@@ -222,18 +222,13 @@ public class FecharContaFrame extends javax.swing.JFrame {
             String sComanda = txtComanda.getText();
             fcbo.validarComanda(sComanda);
 
-            ComandaDAO cdao = new ComandaDAO();
-            ComandaDTO cdto = cdao.buscarPorCodigo(Integer.valueOf(sComanda));
-            if (cdto.isStatus()) {
-                String[][] lista = fcbo.listaPesquisa(sComanda);
-                TableModel model = new DefaultTableModel(lista, vetModelItensVenda);
-                tabListagem.setModel(model);
+            String[][] lista = fcbo.listaPesquisa(sComanda);
+            TableModel model = new DefaultTableModel(lista, vetModelItensVenda);
+            tabListagem.setModel(model);
 
-                ComandaClienteDTO ccdto = fcbo.buscaPorComanda(sComanda);
-                lblTotal.setText(decimalFormat.format(ccdto.getTotal()));
-            } else {
-                MensagensUtil.addMsg(null, "Comanda fechada!!!");
-            }
+            ComandaClienteDTO ccdto = fcbo.buscaPorComanda(sComanda);
+            lblTotal.setText(decimalFormat.format(ccdto.getTotal()));
+
             this.setCursor(DEFAULT_CURSOR);
         } catch (Exception e) {
             e.printStackTrace();
