@@ -1,9 +1,11 @@
 package engenharia.cine.festa.bo;
 
 import engenharia.cine.festa.dao.ComandaClienteDAO;
+import engenharia.cine.festa.dao.ComandaDAO;
 import engenharia.cine.festa.dao.ItensVendaDAO;
 import engenharia.cine.festa.dao.ProdutoDAO;
 import engenharia.cine.festa.dto.ComandaClienteDTO;
+import engenharia.cine.festa.dto.ComandaDTO;
 import engenharia.cine.festa.dto.ItensVendaDTO;
 import engenharia.cine.festa.dto.ProdutoDTO;
 import engenharia.cine.festa.exception.NegocioException;
@@ -65,6 +67,19 @@ public class FecharContaBO {
             return ccdto;
         } catch (Exception e) {
             e.printStackTrace();
+            throw new NegocioException(e.getLocalizedMessage());
+        }
+    }
+
+    public void gravarFechamento(ComandaClienteDTO ccdto) throws NegocioException {
+        try {
+            ComandaClienteDAO ccdao = new ComandaClienteDAO();
+            ccdao.atualizar(ccdto);
+            ComandaDAO cdao = new ComandaDAO();
+            ComandaDTO cdto = cdao.buscarPorCodigo(ccdto.getComanda());
+            cdto.setStatus(false);
+            cdao.atualizar(cdto);
+        } catch (Exception e) {
             throw new NegocioException(e.getLocalizedMessage());
         }
     }

@@ -1,8 +1,11 @@
 package engenharia.cine.festa.gui;
 
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import engenharia.cine.festa.bo.ClienteBO;
 import engenharia.cine.festa.bo.FecharContaBO;
+import engenharia.cine.festa.dao.ComandaDAO;
 import engenharia.cine.festa.dto.ComandaClienteDTO;
+import engenharia.cine.festa.dto.ComandaDTO;
 import engenharia.cine.festa.dto.FestaDTO;
 import engenharia.cine.festa.util.MensagensUtil;
 import engenharia.cine.festa.util.Utilidades;
@@ -35,21 +38,24 @@ public class FecharContaFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         txtComanda = new engenharia.cine.festa.util.JtextFieldSomenteNumeros(10);
         txtCpf = new javax.swing.JFormattedTextField();
         txtRg = new engenharia.cine.festa.util.JtextFieldSomenteNumeros(9);
         pnlListagem = new javax.swing.JPanel();
         jScrollPaneListagem = new javax.swing.JScrollPane();
         tabListagem = new javax.swing.JTable();
-        txtValorPago = new javax.swing.JTextField();
         btnIr = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtValorPago = new javax.swing.JTextField();
+        btnCancelar = new javax.swing.JButton();
+        btnOk = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Fechar Conta");
         setResizable(false);
 
-        jLabel1.setText("Comanda:");
+        jLabel1.setText("*Comanda:");
 
         jLabel2.setText("Cpf:");
 
@@ -60,8 +66,6 @@ public class FecharContaFrame extends javax.swing.JFrame {
 
         lblTotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblTotal.setText("jLabel5");
-
-        jLabel4.setText("Valor pago:");
 
         txtCpf.setEnabled(false);
 
@@ -77,9 +81,7 @@ public class FecharContaFrame extends javax.swing.JFrame {
     pnlListagem.setLayout(pnlListagemLayout);
     pnlListagemLayout.setHorizontalGroup(
         pnlListagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(pnlListagemLayout.createSequentialGroup()
-            .addComponent(jScrollPaneListagem, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(0, 0, Short.MAX_VALUE))
+        .addComponent(jScrollPaneListagem, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
     );
     pnlListagemLayout.setVerticalGroup(
         pnlListagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,6 +96,25 @@ public class FecharContaFrame extends javax.swing.JFrame {
             btnIrActionPerformed(evt);
         }
     });
+
+    jLabel4.setText("*Valor pago:");
+
+    btnCancelar.setText("Cancelar");
+    btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnCancelarActionPerformed(evt);
+        }
+    });
+
+    btnOk.setText("Ok");
+    btnOk.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnOkActionPerformed(evt);
+        }
+    });
+
+    jLabel17.setForeground(new java.awt.Color(153, 0, 0));
+    jLabel17.setText("IMPORTANTE: Campos que estão marcados com o caracter * são de preenchimento obrigatório.");
 
     javax.swing.GroupLayout pnlTudoLayout = new javax.swing.GroupLayout(pnlTudo);
     pnlTudo.setLayout(pnlTudoLayout);
@@ -120,21 +141,29 @@ public class FecharContaFrame extends javax.swing.JFrame {
                             .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(btnIr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTudoLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(pnlTudoLayout.createSequentialGroup()
                     .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTudoLayout.createSequentialGroup()
                             .addComponent(jLabel4)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtValorPago, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pnlTudoLayout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addGap(123, 123, 123)
-                            .addComponent(lblTotal)))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTudoLayout.createSequentialGroup()
+                            .addComponent(btnCancelar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btnOk))
+                        .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTudoLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel5)
+                    .addGap(123, 123, 123)
+                    .addComponent(lblTotal)))
             .addContainerGap())
     );
 
     pnlTudoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtComanda, txtCpf, txtRg});
+
+    pnlTudoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCancelar, btnOk});
 
     pnlTudoLayout.setVerticalGroup(
         pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,12 +185,20 @@ public class FecharContaFrame extends javax.swing.JFrame {
             .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel5)
                 .addComponent(lblTotal))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(txtValorPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel4))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel4)
-                .addComponent(txtValorPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap(135, Short.MAX_VALUE))
+                .addComponent(btnOk)
+                .addComponent(btnCancelar))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jLabel17)
+            .addContainerGap())
     );
+
+    pnlTudoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCancelar, btnOk});
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -171,9 +208,7 @@ public class FecharContaFrame extends javax.swing.JFrame {
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-            .addComponent(pnlTudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(0, 0, Short.MAX_VALUE))
+        .addComponent(pnlTudo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
 
     pack();
@@ -182,20 +217,69 @@ public class FecharContaFrame extends javax.swing.JFrame {
     private void btnIrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrActionPerformed
         FecharContaBO fcbo = new FecharContaBO();
         try {
+            this.setCursor(WAIT_CURSOR);
+
             String sComanda = txtComanda.getText();
             fcbo.validarComanda(sComanda);
 
-            String[][] lista = fcbo.listaPesquisa(sComanda);
-            TableModel model = new DefaultTableModel(lista, vetModelItensVenda);
-            tabListagem.setModel(model);
+            ComandaDAO cdao = new ComandaDAO();
+            ComandaDTO cdto = cdao.buscarPorCodigo(Integer.valueOf(sComanda));
+            if (cdto.isStatus()) {
+                String[][] lista = fcbo.listaPesquisa(sComanda);
+                TableModel model = new DefaultTableModel(lista, vetModelItensVenda);
+                tabListagem.setModel(model);
 
-            ComandaClienteDTO ccdto = fcbo.buscaPorComanda(sComanda);
-            lblTotal.setText(decimalFormat.format(ccdto.getTotal()));
+                ComandaClienteDTO ccdto = fcbo.buscaPorComanda(sComanda);
+                lblTotal.setText(decimalFormat.format(ccdto.getTotal()));
+            } else {
+                MensagensUtil.addMsg(null, "Comanda fechada!!!");
+            }
+            this.setCursor(DEFAULT_CURSOR);
         } catch (Exception e) {
             e.printStackTrace();
             MensagensUtil.addMsg(this, e.getLocalizedMessage());
         }
     }//GEN-LAST:event_btnIrActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.setCursor(WAIT_CURSOR);
+        TableModel model = new ModeloTabela(new String[][]{}, vetModelItensVenda);
+        tabListagem.setModel(model);
+        txtComanda.setText("");
+        txtCpf.setValue("");
+        txtCpf.setText("");
+        txtRg.setText("");
+        lblTotal.setText("0.00");
+        this.setCursor(DEFAULT_CURSOR);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        try {
+
+            this.setCursor(WAIT_CURSOR);
+            FecharContaBO fcbo = new FecharContaBO();
+            String sComanda = txtComanda.getText();
+            String sTroco = "";
+            fcbo.validarComanda(sComanda);
+
+            this.setCursor(DEFAULT_CURSOR);
+
+            this.setCursor(WAIT_CURSOR);
+            String[][] lista = fcbo.listaPesquisa(sComanda);
+            TableModel model = new ModeloTabela(lista, vetModelItensVenda);
+            ComandaClienteDTO ccdto = fcbo.buscaPorComanda(sComanda);
+            ccdto.setValorPago(Float.valueOf(txtValorPago.getText().replace(",", ".")));
+            Float fTroco = ccdto.getValorPago() - ccdto.getTotal();
+            ccdto.setValorPago(fTroco > 0 ? ccdto.getTotal() : ccdto.getValorPago());
+            fcbo.gravarFechamento(ccdto);
+            MensagensUtil.addMsg(null, "Comanda fechada com sucesso!!!" + System.getProperty("line.separator") + "Troco: " + decimalFormat.format(fTroco));
+            this.setCursor(DEFAULT_CURSOR);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            MensagensUtil.addMsg(null, e.getLocalizedMessage());
+        }
+    }//GEN-LAST:event_btnOkActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -206,8 +290,11 @@ public class FecharContaFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnIr;
+    private javax.swing.JButton btnOk;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -223,16 +310,17 @@ public class FecharContaFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtValorPago;
     // End of variables declaration//GEN-END:variables
     private void initConf() {
-        this.setLocationRelativeTo(null);
-        Utilidades.AlteraIconeFrame(this,
-                new ImageIcon(this.getClass().getResource("/Imagens/icone64x64.png")));
         try {
+            this.setLocationRelativeTo(null);
+            Utilidades.AlteraIconeFrame(this,
+                    new ImageIcon(this.getClass().getResource("/Imagens/icone64x64.png")));
             ClienteBO cbo = new ClienteBO();
             FestaDTO festa = cbo.buscarFesta();
             this.setTitle(this.getTitle() + " - " + festa.getAtracao());
+            lblTotal.setText("0.00");
+            txtValorPago.setText("0.00");
         } catch (Exception e) {
             MensagensUtil.addMsg(null, e.getLocalizedMessage());
         }
-
     }
 }

@@ -21,7 +21,22 @@ public class ComandaClienteDAO implements GenericoDAO<ComandaClienteDTO> {
 
     @Override
     public void atualizar(ComandaClienteDTO obj) throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sSQL = "update comandacliente set ";
+            sSQL += " total = ?, valorPago = ? ";
+            sSQL += "where comanda = ? and cliente = ? and festa = ?";
+            PreparedStatement ps = connection.prepareStatement(sSQL);
+            ps.setFloat(1, obj.getTotal());
+            ps.setFloat(2, obj.getValorPago());
+            ps.setInt(3, obj.getComanda());
+            ps.setInt(4, obj.getCliente());
+            ps.setInt(5, obj.getFesta());
+            ps.executeUpdate();
+            connection.close();
+        } catch (Exception e) {
+            throw new PersistenciaException(e.getLocalizedMessage());
+        }
     }
 
     @Override

@@ -28,7 +28,7 @@ public class Main {
 //        new CadFestaFrame().setVisible(true);
 //        new CadClienteFrame().setVisible(true);
 //        new VincularClienteComanda().setVisible(true);
-        new RealizarVendaFrame().setVisible(true);
-//        new FecharContaFrame().setVisible(true);
+//        new RealizarVendaFrame().setVisible(true);
+        new FecharContaFrame().setVisible(true);
     }
 }

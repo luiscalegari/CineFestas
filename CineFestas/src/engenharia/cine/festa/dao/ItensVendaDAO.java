@@ -57,14 +57,14 @@ public class ItensVendaDAO implements GenericoDAO<ItensVendaDTO> {
         try {
             List<ItensVendaDTO> listItensVendaDTO = new ArrayList<ItensVendaDTO>();
             Connection c = ConexaoUtil.getInstance().getConnection();
-            String sSQl = "";
-            sSQl = "select iv.venda, iv.produto, iv.qtde, iv.valor from itensvenda iv"
+            String sSQL = "";
+            sSQL = "select iv.venda, iv.produto, iv.qtde, iv.valor from itensvenda iv"
                     + " inner join venda ven on ven.numero = iv.venda"
                     + " inner join comanda com on com.numero = ven.comanda and com.numero = ?"
                     + " inner join comandacliente cc on cc.comanda = com.numero"
                     + " inner join festa f on f.codigo = cc.festa and curdate() in (f.dtEvento)";
 
-            PreparedStatement st = c.prepareStatement(sSQl);
+            PreparedStatement st = c.prepareStatement(sSQL);
             st.setInt(1, comanda);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {

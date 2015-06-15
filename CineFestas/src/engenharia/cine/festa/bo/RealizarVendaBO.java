@@ -1,14 +1,18 @@
 package engenharia.cine.festa.bo;
 
+import engenharia.cine.festa.dao.ComandaDAO;
 import engenharia.cine.festa.dao.ItensVendaDAO;
 import engenharia.cine.festa.dao.ProdutoDAO;
 import engenharia.cine.festa.dao.VendaDAO;
+import engenharia.cine.festa.dto.ComandaDTO;
 import engenharia.cine.festa.dto.ItensVendaDTO;
 import engenharia.cine.festa.dto.ProdutoDTO;
 import engenharia.cine.festa.dto.VendaDTO;
 import engenharia.cine.festa.exception.NegocioException;
+import engenharia.cine.festa.exception.PersistenciaException;
 import engenharia.cine.festa.exception.ValidacaoException;
 import java.util.List;
+import jdk.nashorn.internal.runtime.regexp.joni.EncodingHelper;
 
 /**
  *
@@ -59,12 +63,18 @@ public class RealizarVendaBO {
         }
     }
 
-    public boolean validarComanda(String comanda) throws ValidacaoException {
+    public boolean validarComanda(String comanda) throws ValidacaoException, PersistenciaException {
         boolean ehValido = true;
         if (comanda.isEmpty()) {
             ehValido = false;
             throw new ValidacaoException("Campo comanda deve ser preenchido!");
-        } 
+        } else {
+            ComandaDAO cdao = new ComandaDAO();
+            ComandaDTO cdto = cdao.buscarPorCodigo(Integer.valueOf(comanda));
+            if (!cdto.isStatus()) {
+                throw new ValidacaoException("Comanda fechada!");
+            }
+        }
         return ehValido;
     }
 
@@ -132,6 +142,18 @@ public class RealizarVendaBO {
             ivdao.inserir(intemVenda);
         } catch (Exception e) {
             e.printStackTrace();
+            throw new NegocioException(e.getLocalizedMessage());
+        }
+    }
+
+    public void verificaQtdeEstoque(ItensVendaDTO itemVenda) throws NegocioException {
+        try {
+            ProdutoDAO pdao = new ProdutoDAO();
+            ProdutoDTO pdto = pdao.buscarPorCodigo(itemVenda.getProduto());
+            if (pdto.getEstoque() <= itemVenda.getQtde()) {
+                throw new NegocioException("Quantidade do produto \"" + pdto.getDescricao() + "\" acima da quantidade em estoque!!!");
+            }
+        } catch (Exception e) {
             throw new NegocioException(e.getLocalizedMessage());
         }
     }

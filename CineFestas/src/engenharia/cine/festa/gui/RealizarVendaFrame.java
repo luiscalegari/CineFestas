@@ -6,18 +6,13 @@ import engenharia.cine.festa.dto.FestaDTO;
 import engenharia.cine.festa.dto.ItensVendaDTO;
 import engenharia.cine.festa.dto.ProdutoDTO;
 import engenharia.cine.festa.dto.VendaDTO;
-import engenharia.cine.festa.exception.NegocioException;
 import engenharia.cine.festa.util.MensagensUtil;
 import engenharia.cine.festa.util.Utilidades;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.ImageIcon;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -67,6 +62,7 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
         modelQtde.setMinimum(1);
         txtQuantidade = new javax.swing.JSpinner(modelQtde);
         jLabel5 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Realizar Venda");
@@ -90,7 +86,7 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Comanda:");
+        jLabel3.setText("*Comanda:");
 
         txtComanda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -134,54 +130,62 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
 
         jLabel5.setText("QTDE");
 
+        jLabel17.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel17.setText("IMPORTANTE: Campos que estão marcados com o caracter * são de preenchimento obrigatório.");
+
         javax.swing.GroupLayout pnlTudoLayout = new javax.swing.GroupLayout(pnlTudo);
         pnlTudo.setLayout(pnlTudoLayout);
         pnlTudoLayout.setHorizontalGroup(
             pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTudoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlTudoLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlTudoLayout.createSequentialGroup()
-                        .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPaneProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(pnlTudoLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDecricao, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnAdicionar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnRetirar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtQuantidade, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTudoLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(19, 19, 19)))))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPaneItensVenda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTudoLayout.createSequentialGroup()
-                            .addComponent(btnCancelar)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnOk)))
+                .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlTudoLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlTudoLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
+                        .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlTudoLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlTudoLayout.createSequentialGroup()
+                                .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jScrollPaneProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addGroup(pnlTudoLayout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtDecricao, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(btnAdicionar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnRetirar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtQuantidade, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTudoLayout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(19, 19, 19)))))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPaneItensVenda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTudoLayout.createSequentialGroup()
+                                    .addComponent(btnCancelar)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnOk)))
                             .addGroup(pnlTudoLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblTotal)))))
+                                .addGap(3, 3, 3)
+                                .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlTudoLayout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(pnlTudoLayout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblTotal))))))
+                    .addGroup(pnlTudoLayout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -226,6 +230,8 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
                         .addGroup(pnlTudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnOk)
                             .addComponent(btnCancelar))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel17)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -237,7 +243,9 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlTudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -293,7 +301,7 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
         String sTotal = lblTotal.getText();
 
         // Campos tablea de ItensVenda
-        String sVenda;
+        String sVenda = "";
         String sProduto = "";
         String sQtde = "";
         String sValor = "";
@@ -322,11 +330,17 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
 
                 listaItensVenda.add(ivdto);
             }
-
+            
+//            Verifica se as qunatidades estão disponíveis no estoque;
+            for (ItensVendaDTO itemVenda : listaItensVenda) {
+                rvbo.verificaQtdeEstoque(itemVenda);
+            }
+            
+//            Grava intens da venda no banco.
             int iVenda = rvbo.cadastrarVenda(vdto);
-            for (ItensVendaDTO intemVenda : listaItensVenda) {
-                intemVenda.setVenda(iVenda);
-                rvbo.cadastrarItenVenda(intemVenda);
+            for (ItensVendaDTO itemVenda : listaItensVenda) {
+                itemVenda.setVenda(iVenda);
+                rvbo.cadastrarItenVenda(itemVenda);
             }
             btnCancelarActionPerformed(null);
         } catch (Exception e) {
@@ -345,58 +359,96 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtComandaKeyPressed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        ProdutoDTO pdto = new ProdutoDTO();
-        try {
-            // Buscar Produto Selecionado no JTable tabProdutos
-            RealizarVendaBO rvbo = new RealizarVendaBO();
-            pdto = rvbo.selecionarProdutoPorCodigo(listaCodigo.get(tabProdutos.getSelectedRow()));
+        if (tabProdutos.getSelectedRow() >= 0) {
+            this.setCursor(WAIT_CURSOR);
+            ProdutoDTO pdto = new ProdutoDTO();
+            try {
+                // Buscar Produto Selecionado no JTable tabProdutos
+                RealizarVendaBO rvbo = new RealizarVendaBO();
+                pdto = rvbo.selecionarProdutoPorCodigo(listaCodigo.get(tabProdutos.getSelectedRow()));
 
-            // Prepara dados para inserir na tabela de itens da venda
-            String sCodigo = String.valueOf(pdto.getCodigo());
-            String sDescricao = pdto.getDescricao();
-            String sPreco = String.valueOf(pdto.getPrecoVenda());
-            String sQtde = String.valueOf(txtQuantidade.getValue());
-            rvbo.validarQtde(sQtde);
+                // Prepara dados para inserir na tabela de itens da venda
+                String sCodigo = String.valueOf(pdto.getCodigo());
+                String sDescricao = pdto.getDescricao();
+                String sPreco = String.valueOf(pdto.getPrecoVenda());
+                String sQtde = String.valueOf(txtQuantidade.getValue());
+                rvbo.validarQtde(sQtde);
 
-            String modelLinha[];
-            modelLinha = new String[]{sCodigo, sDescricao, sPreco, sQtde};
+                String modelLinha[];
+                modelLinha = new String[]{sCodigo, sDescricao, sPreco, sQtde};
 
-            // Verrendo JTable tabItensVenda para verificar se o produto ja foi adicionado anteriormente nesta mesma venda
-            DefaultTableModel defaultTableModel = (DefaultTableModel) tabItensVenda.getModel();
-            int i = 0;
-            while (i < defaultTableModel.getRowCount() && Integer.parseInt((String) defaultTableModel.getValueAt(i, 0)) != pdto.getCodigo()) {
-                i++;
+                // Verrendo JTable tabItensVenda para verificar se o produto ja foi adicionado anteriormente nesta mesma venda
+                DefaultTableModel defaultTableModel = (DefaultTableModel) tabItensVenda.getModel();
+                int i = 0;
+                while (i < defaultTableModel.getRowCount() && Integer.parseInt((String) defaultTableModel.getValueAt(i, 0)) != pdto.getCodigo()) {
+                    i++;
+                }
+                // Se não encontrar o produto apenas adicionar o produto na TableModel
+                if (i >= defaultTableModel.getRowCount()) {
+                    defaultTableModel.addRow(modelLinha);
+                } else { // Caso o produto já exista na tabela apenas adicionar a quantidade na coluna de quantidade.
+                    String sQtdeExistente = String.valueOf(defaultTableModel.getValueAt(i, 3));
+                    int iQtdeExistente = Integer.parseInt(sQtdeExistente);
+                    int iQtdeAdicionada = Integer.parseInt(sQtde);
+                    int iQtdeTotal = iQtdeExistente + iQtdeAdicionada;
+                    defaultTableModel.setValueAt(iQtdeTotal, i, 3);
+                }
+                tabItensVenda.setModel(defaultTableModel);
+
+                // Calcular valor total da Venda
+                float fTot = 0;
+                for (int j = 0; j < defaultTableModel.getRowCount(); j++) {
+                    sPreco = String.valueOf(defaultTableModel.getValueAt(j, 2));
+                    sQtde = String.valueOf(defaultTableModel.getValueAt(j, 3));
+                    float fPreco = Float.parseFloat(sPreco);
+                    float fQtde = Float.parseFloat(sQtde);
+                    fTot += fPreco * fQtde;
+                }
+                lblTotal.setText(decimalFormat.format(fTot));
+            } catch (Exception e) {
+                e.printStackTrace();
+                MensagensUtil.addMsg(null, e.getMessage());
             }
-            // Se não encontrar o produto apenas adicionar o produto na TableModel
-            if (i >= defaultTableModel.getRowCount()) {
-                defaultTableModel.addRow(modelLinha);
-            } else { // Caso o produto já exista na tabela apenas adicionar a quantidade na coluna de quantidade.
-                String sQtdeExistente = String.valueOf(defaultTableModel.getValueAt(i, 3));
-                int iQtdeExistente = Integer.parseInt(sQtdeExistente);
-                int iQtdeAdicionada = Integer.parseInt(sQtde);
-                int iQtdeTotal = iQtdeExistente + iQtdeAdicionada;
-                defaultTableModel.setValueAt(iQtdeTotal, i, 3);
+            txtQuantidade.setValue(1);
+            this.setCursor(DEFAULT_CURSOR);
+        } else {
+            MensagensUtil.addMsg(null, "Selecione um produto!!!");
+        }
+    }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarActionPerformed
+        if (tabItensVenda.getSelectedRow() >= 0) {
+            this.setCursor(WAIT_CURSOR);
+//            Pegando e retirando os valores da JTable.
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tabItensVenda.getModel();
+            String sQtdeAtual = String.valueOf(defaultTableModel.getValueAt(tabItensVenda.getSelectedRow(), 3));
+            String sQtdeNova = String.valueOf(txtQuantidade.getValue());
+            int iQtdeAtual = Integer.parseInt(sQtdeAtual);
+            int iQtdeNova = Integer.parseInt(sQtdeNova);
+            int iQtde = iQtdeAtual - iQtdeNova > 0 ? iQtdeAtual - iQtdeNova : 0;
+            if (iQtde > 0) {
+                defaultTableModel.setValueAt(iQtde, tabItensVenda.getSelectedRow(), 3);
+            } else {
+                defaultTableModel.removeRow(tabItensVenda.getSelectedRow());
             }
             tabItensVenda.setModel(defaultTableModel);
+            txtQuantidade.setValue(1);
 
-            // Calcular valor total da Venda
+//            Atualizando total da venda.
+            defaultTableModel = (DefaultTableModel) tabItensVenda.getModel();
             float fTot = 0;
             for (int j = 0; j < defaultTableModel.getRowCount(); j++) {
-                sPreco = String.valueOf(defaultTableModel.getValueAt(j, 2));
-                sQtde = String.valueOf(defaultTableModel.getValueAt(j, 3));
+                String sPreco = String.valueOf(defaultTableModel.getValueAt(j, 2));
+                String sQtde = String.valueOf(defaultTableModel.getValueAt(j, 3));
                 float fPreco = Float.parseFloat(sPreco);
                 float fQtde = Float.parseFloat(sQtde);
                 fTot += fPreco * fQtde;
             }
             lblTotal.setText(decimalFormat.format(fTot));
-        } catch (Exception e) {
-            e.printStackTrace();
-            MensagensUtil.addMsg(null, e.getMessage());
+            this.setCursor(DEFAULT_CURSOR);
+        } else {
+            MensagensUtil.addMsg(null, "Selecione um item da venda para ser retirado!");
         }
-    }//GEN-LAST:event_btnAdicionarActionPerformed
-
-    private void btnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarActionPerformed
-        
     }//GEN-LAST:event_btnRetirarActionPerformed
 
     public static void main(String args[]) {
@@ -414,6 +466,7 @@ public class RealizarVendaFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnOk;
     private javax.swing.JButton btnRetirar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
